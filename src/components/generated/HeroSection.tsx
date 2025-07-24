@@ -4,21 +4,21 @@ import { ExternalLink, Calendar, MapPin, Clock } from 'lucide-react';
 const HeroSection: React.FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const videos = [{
-    id: 'caOtbIMgDCQ',
-    title: 'Kumar Prescod Boxing Video',
-    mpid: "9354a799-92e4-4118-8634-e4bb74fc6b11"
-  }, {
     id: '4jftcUAny5E',
     title: 'Kumar Prescod Training',
-    mpid: "8467e4c8-c551-4400-a852-02f2ed6ce692"
+    mpid: "0a6d2a3a-ae26-4d3f-82e3-bf677d63ba04"
   }, {
     id: 'C3zE1Ol1ByA',
     title: 'Kumar Prescod Highlights',
-    mpid: "2ff155e1-3332-41f4-bf55-22d84ac4f7e3"
+    mpid: "2c567f50-866a-42fb-8d7f-0127c59c1f92"
   }, {
     id: 'fHaH1vGAhJc',
     title: 'Kumar Prescod Skills',
-    mpid: "fcfbc51a-cda1-4944-81c9-883f1eb30716"
+    mpid: "014542de-52cf-4967-8dfa-c19d87a6837e"
+  }, {
+    id: 'caOtbIMgDCQ',
+    title: 'Kumar Prescod Boxing Video',
+    mpid: "6f202517-fada-4108-b63d-e4227ce8854a"
   }] as any[];
   useEffect(() => {
     const interval = setInterval(() => {

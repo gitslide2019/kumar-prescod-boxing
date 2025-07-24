@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, MapPin, Clock } from 'lucide-react';
 const HeroSection: React.FC = () => {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const videos = [{
+    id: 'caOtbIMgDCQ',
+    title: 'Kumar Prescod Boxing Video',
+    mpid: "9354a799-92e4-4118-8634-e4bb74fc6b11"
+  }, {
+    id: '4jftcUAny5E',
+    title: 'Kumar Prescod Training',
+    mpid: "8467e4c8-c551-4400-a852-02f2ed6ce692"
+  }, {
+    id: 'C3zE1Ol1ByA',
+    title: 'Kumar Prescod Highlights',
+    mpid: "2ff155e1-3332-41f4-bf55-22d84ac4f7e3"
+  }, {
+    id: 'fHaH1vGAhJc',
+    title: 'Kumar Prescod Skills',
+    mpid: "fcfbc51a-cda1-4944-81c9-883f1eb30716"
+  }] as any[];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideoIndex(prevIndex => prevIndex === videos.length - 1 ? 0 : prevIndex + 1);
+    }, 30000); // Change video every 30 seconds
+
+    return () => clearInterval(interval);
+  }, [videos.length]);
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" data-magicpath-id="0" data-magicpath-path="HeroSection.tsx">
       {/* Background Video */}
       <div className="absolute inset-0" data-magicpath-id="1" data-magicpath-path="HeroSection.tsx">
-        <iframe className="w-full h-full object-cover" src="https://www.youtube.com/embed/caOtbIMgDCQ?si=opcJQ3K8oatSyiI2&autoplay=1&mute=1&loop=1&playlist=caOtbIMgDCQ&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" title="Kumar Prescod Boxing Video" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen data-magicpath-id="2" data-magicpath-path="HeroSection.tsx" />
+        <iframe key={currentVideoIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${videos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${videos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`} title={videos[currentVideoIndex].title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen data-magicpath-id="2" data-magicpath-path="HeroSection.tsx" />
         <div className="absolute inset-0 bg-black/40" data-magicpath-id="3" data-magicpath-path="HeroSection.tsx" />
       </div>
 

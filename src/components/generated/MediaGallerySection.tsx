@@ -22,7 +22,7 @@ const MediaGallerySection: React.FC = () => {
     category: 'training',
     title: 'Heavy Bag Training',
     thumbnail: '/api/placeholder/400/300',
-    mpid: "3855df4b-c13a-4c98-8f1b-3b301bbc7fef"
+    mpid: "3f55ee61-8b59-44d8-8302-e581441d3d81"
   }, {
     id: 2,
     type: 'video',
@@ -30,21 +30,21 @@ const MediaGallerySection: React.FC = () => {
     title: 'Championship Fight Highlights',
     thumbnail: '/api/placeholder/400/300',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    mpid: "33834e33-2b85-4d29-9389-ce1c4be396f7"
+    mpid: "05b4a1c1-104c-4bc1-b2a3-cf8e7f086c82"
   }, {
     id: 3,
     type: 'image',
     category: 'training',
     title: 'Sparring Session',
     thumbnail: '/api/placeholder/400/300',
-    mpid: "c4154b58-cc36-42e6-b897-a4657e2d6004"
+    mpid: "b3ef1e73-6f10-43ea-b235-de6fa9b1848f"
   }, {
     id: 4,
     type: 'image',
     category: 'fights',
     title: 'Victory Celebration',
     thumbnail: '/api/placeholder/400/300',
-    mpid: "e20dead2-94fd-4372-9d11-33125a397182"
+    mpid: "57e948f5-b419-4dee-a1bc-dfda7e892e78"
   }, {
     id: 5,
     type: 'video',
@@ -52,14 +52,14 @@ const MediaGallerySection: React.FC = () => {
     title: 'Speed Bag Workout',
     thumbnail: '/api/placeholder/400/300',
     videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    mpid: "563e1fe3-d05c-429f-9f24-16020b3052c3"
+    mpid: "98901f44-0600-4cd2-ba48-fef519aa8cad"
   }, {
     id: 6,
     type: 'image',
     category: 'fights',
     title: 'Ring Entrance',
     thumbnail: '/api/placeholder/400/300',
-    mpid: "db4ce910-a1c3-4797-8a54-301db4a40c71"
+    mpid: "d52da918-ce66-4d79-98a9-8c448f0c8bb3"
   }];
   const filteredMedia = mediaItems.filter(item => activeFilter === 'all' || item.category === activeFilter);
   const openModal = (media: MediaItem) => {

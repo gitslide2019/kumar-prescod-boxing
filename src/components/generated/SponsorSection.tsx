@@ -92,21 +92,21 @@ const sponsorPackages = [{
     name: "Oakland Boxing Gym",
     amount: 500,
     public: true,
-    mpid: "27468f00-f790-4e1b-8887-91fa45ff405a"
+    mpid: "51ca0390-a730-4d99-88c7-77e32dc4f2b6"
   }, {
     name: "Mike Rodriguez",
     amount: 300,
     public: true,
-    mpid: "6675955e-e9e8-4560-a761-88a63b5102ee"
+    mpid: "6f5b00a6-bd72-4efb-a730-bc1ca5cfbe97"
   }, {
     name: "Anonymous",
     amount: 1000,
     public: false,
-    mpid: "811314fe-fd40-4f99-8f11-364773ca44a3"
+    mpid: "b97fb9b1-4161-4f5c-b9c5-5a7e1e3795a2"
   }],
   featured: false,
   color: "from-blue-500 to-blue-600",
-  mpid: "5fef7081-5703-4044-994b-6c393544f4ba"
+  mpid: "e78342cc-3c9a-4e3f-8c9f-55b0ccd98a66"
 }, {
   id: "fight-sponsor",
   title: "Fight Night Sponsor",
@@ -120,21 +120,21 @@ const sponsorPackages = [{
     name: "Bay Area Sports",
     amount: 2000,
     public: true,
-    mpid: "c62e853e-377f-4ebc-8cf8-82ad1798c084"
+    mpid: "ef6f7fe8-3bbb-4884-b90c-a7bf19dd0f00"
   }, {
     name: "Champion Nutrition",
     amount: 800,
     public: true,
-    mpid: "2e3716ce-8a09-44a2-8672-daa871b987ae"
+    mpid: "5409fb0e-8b8d-4c0e-a515-d8594d659c0f"
   }, {
     name: "Anonymous",
     amount: 400,
     public: false,
-    mpid: "5d160fce-5c95-4ebd-9d0c-5de7ccfe382f"
+    mpid: "2c6b7f64-2265-4ee3-b561-4e6c9aeb07b7"
   }],
   featured: true,
   color: "from-red-500 to-red-600",
-  mpid: "e1568d68-f770-46b3-a321-899d01e4cbed"
+  mpid: "bf871ffa-4fd5-439a-ae2a-dd37a1f3b076"
 }, {
   id: "equipment-sponsor",
   title: "Equipment Partner",
@@ -148,16 +148,16 @@ const sponsorPackages = [{
     name: "Elite Boxing Gear",
     amount: 1000,
     public: true,
-    mpid: "9873c1ba-dac7-4121-a0cf-854c0e6d7ba9"
+    mpid: "896225dc-0fbb-4b63-9dfe-09efa3216e1f"
   }, {
     name: "Sarah Chen",
     amount: 500,
     public: true,
-    mpid: "51a8a1f4-b9c6-4f9c-b6f8-fe952b147bd1"
+    mpid: "5f039301-d9b7-492e-829b-b65fdabb115c"
   }],
   featured: false,
   color: "from-green-500 to-green-600",
-  mpid: "f3f61de0-11dc-45d8-9eb7-7a1184934093"
+  mpid: "575477c4-a170-4b0b-9db3-43b73e34dcf1"
 }, {
   id: "career-sponsor",
   title: "Career Champion",
@@ -171,16 +171,16 @@ const sponsorPackages = [{
     name: "Golden State Investments",
     amount: 3000,
     public: true,
-    mpid: "b98ab315-6320-4fa4-99f2-b321dc9e2ce9"
+    mpid: "2b5d6c04-5d22-4dd3-9e36-b9484deb119e"
   }, {
     name: "Anonymous",
     amount: 1500,
     public: false,
-    mpid: "45b9fc76-0aab-4ba5-8b07-5f7e19fff5c1"
+    mpid: "dfb02c8a-a4ca-4fbd-9f31-ce1515b05773"
   }],
   featured: true,
   color: "from-purple-500 to-purple-600",
-  mpid: "108b1333-c320-4057-88da-571e0e9b0097"
+  mpid: "73972445-2f46-4aba-bffa-e1999e15a736"
 }] as any[];
 export default function SponsorSection({
   className = ""

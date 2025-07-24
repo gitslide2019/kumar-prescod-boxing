@@ -6,29 +6,29 @@ const AboutSection: React.FC = () => {
     icon: Trophy,
     label: '9x National Champion',
     value: '9',
-    mpid: "7345eadd-88c8-4595-8394-9ab89daabf92"
+    mpid: "9c58710c-5fd9-4320-b259-b0d45548caf6"
   }, {
     icon: Target,
     label: 'Amateur Record',
     value: '63-8',
-    mpid: "1137a9d6-6b4f-4771-9626-5070c487d071"
+    mpid: "a963b389-e118-458b-bb19-de42842062db"
   }, {
     icon: Zap,
     label: 'Professional Record',
     value: '3-0',
-    mpid: "bdcd9812-2c65-4e7b-97e9-07648c228f53"
+    mpid: "a197248b-1a52-4617-b3bf-6f0a23987cb7"
   }, {
     icon: Award,
     label: 'Professional KOs',
     value: '3',
-    mpid: "d039a859-21d5-49ec-9a7c-60d54e49525e"
+    mpid: "3f3a54e5-167a-4c50-bfee-c9285f1428cd"
   }] as any[];
   return <section id="about" className="relative py-20 bg-gray-900 overflow-hidden" data-magicpath-id="0" data-magicpath-path="AboutSection.tsx">
       {/* Background Videos */}
-      <div className="absolute inset-0 opacity-20" data-magicpath-id="1" data-magicpath-path="AboutSection.tsx">
+      <div className="absolute inset-0 opacity-60" data-magicpath-id="1" data-magicpath-path="AboutSection.tsx">
         <iframe className="absolute top-0 left-0 w-1/2 h-full object-cover" src="https://www.youtube.com/embed/m5ZvGaWKrrQ?autoplay=1&mute=1&loop=1&playlist=m5ZvGaWKrrQ&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" title="Kumar's Journey Video 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen data-magicpath-id="2" data-magicpath-path="AboutSection.tsx" />
         <iframe className="absolute top-0 right-0 w-1/2 h-full object-cover" src="https://www.youtube.com/embed/3mj7iYfKQxE?autoplay=1&mute=1&loop=1&playlist=3mj7iYfKQxE&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" title="Kumar's Journey Video 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen data-magicpath-id="3" data-magicpath-path="AboutSection.tsx" />
-        <div className="absolute inset-0 bg-gray-900/80" data-magicpath-id="4" data-magicpath-path="AboutSection.tsx" />
+        <div className="absolute inset-0 bg-gray-900/50" data-magicpath-id="4" data-magicpath-path="AboutSection.tsx" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-magicpath-id="5" data-magicpath-path="AboutSection.tsx">

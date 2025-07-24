@@ -83,7 +83,7 @@ const merchandise = [{
   reviews: 127,
   badge: "Best Seller",
   colors: ["Black", "White", "Red"],
-  mpid: "a4a70290-bbe6-428f-b2c4-af260ea32c79"
+  mpid: "8cdc8a76-5482-4e65-9008-bea66508123e"
 }, {
   id: "training-hoodie",
   name: "Champion Training Hoodie",
@@ -95,7 +95,7 @@ const merchandise = [{
   reviews: 89,
   badge: "New",
   colors: ["Black", "Gray", "Navy"],
-  mpid: "3b3889c6-af47-40d7-bcbc-b049adfe70e1"
+  mpid: "effa50f4-b9eb-4ba5-8778-021165490ed1"
 }, {
   id: "boxing-gloves",
   name: "KP Pro Boxing Gloves",
@@ -107,7 +107,7 @@ const merchandise = [{
   reviews: 45,
   badge: "Pro Grade",
   colors: ["Red", "Black", "White"],
-  mpid: "6f5227a7-287b-4cd7-a717-1cfc0ce14dbd"
+  mpid: "6a4d0d88-7c22-4342-a3ec-3690283da1b1"
 }, {
   id: "gym-bag",
   name: "Champion Gym Bag",
@@ -119,7 +119,7 @@ const merchandise = [{
   reviews: 156,
   badge: "",
   colors: ["Black", "Red"],
-  mpid: "3de17432-382b-4ef5-b83a-7dee1563bf13"
+  mpid: "6eb7569c-70a8-4ecf-9a08-e99a228ae4a8"
 }, {
   id: "fight-shorts",
   name: "Official Fight Shorts",
@@ -131,7 +131,7 @@ const merchandise = [{
   reviews: 78,
   badge: "Limited Edition",
   colors: ["Black/Red", "White/Gold"],
-  mpid: "6d6a7475-e680-4abc-b7f7-05515c667c25"
+  mpid: "87fc9b9b-dce0-474b-a60b-aded54249bf8"
 }, {
   id: "water-bottle",
   name: "Hydration Champion Bottle",
@@ -143,7 +143,7 @@ const merchandise = [{
   reviews: 203,
   badge: "",
   colors: ["Black", "Silver", "Red"],
-  mpid: "84027c5e-81fa-4f63-8819-ff9f846e2a23"
+  mpid: "f3a33c0c-0b4e-476f-b7ba-ccc2596d76a9"
 }] as any[];
 export default function ShopSection({
   className = ""
@@ -184,8 +184,8 @@ export default function ShopSection({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" data-magicpath-id="22" data-magicpath-path="ShopSection.tsx">
           {merchandise.map(item => <Card key={item.id} className="group overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="23" data-magicpath-path="ShopSection.tsx">
               <div className="relative overflow-hidden" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="24" data-magicpath-path="ShopSection.tsx">
-                <img src={item.image} alt={item.name} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="image:string" data-magicpath-id="25" data-magicpath-path="ShopSection.tsx" />
-                {item.badge && <Badge className={`absolute top-3 left-3 ${item.badge === 'Best Seller' ? 'bg-red-600' : item.badge === 'New' ? 'bg-green-600' : item.badge === 'Pro Grade' ? 'bg-purple-600' : item.badge === 'Limited Edition' ? 'bg-orange-600' : 'bg-gray-600'}`} data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="badge:string" data-magicpath-id="26" data-magicpath-path="ShopSection.tsx">
+                <img src={item.image} alt={item.name} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="image:unknown" data-magicpath-id="25" data-magicpath-path="ShopSection.tsx" />
+                {item.badge && <Badge className={`absolute top-3 left-3 ${item.badge === 'Best Seller' ? 'bg-red-600' : item.badge === 'New' ? 'bg-green-600' : item.badge === 'Pro Grade' ? 'bg-purple-600' : item.badge === 'Limited Edition' ? 'bg-orange-600' : 'bg-gray-600'}`} data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="badge:unknown" data-magicpath-id="26" data-magicpath-path="ShopSection.tsx">
                     {item.badge}
                   </Badge>}
                 <Button size="sm" className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-black hover:bg-gray-100" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="27" data-magicpath-path="ShopSection.tsx">
@@ -194,30 +194,30 @@ export default function ShopSection({
               </div>
 
               <CardHeader className="pb-3" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="29" data-magicpath-path="ShopSection.tsx">
-                <CardTitle className="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="name:string" data-magicpath-id="30" data-magicpath-path="ShopSection.tsx">
+                <CardTitle className="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="name:unknown" data-magicpath-id="30" data-magicpath-path="ShopSection.tsx">
                   {item.name}
                 </CardTitle>
                 <div className="flex items-center space-x-2" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="31" data-magicpath-path="ShopSection.tsx">
                   <div className="flex items-center" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="32" data-magicpath-path="ShopSection.tsx">
                     {[...Array(5)].map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Math.floor(item.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="33" data-magicpath-path="ShopSection.tsx" />)}
                   </div>
-                  <span className="text-sm text-gray-600" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="rating:number,reviews:number" data-magicpath-id="34" data-magicpath-path="ShopSection.tsx">
+                  <span className="text-sm text-gray-600" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="rating:unknown,reviews:unknown" data-magicpath-id="34" data-magicpath-path="ShopSection.tsx">
                     {item.rating} ({item.reviews} reviews)
                   </span>
                 </div>
               </CardHeader>
 
               <CardContent className="pt-0" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="35" data-magicpath-path="ShopSection.tsx">
-                <p className="text-sm text-gray-600 mb-4" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="description:string" data-magicpath-id="36" data-magicpath-path="ShopSection.tsx">
+                <p className="text-sm text-gray-600 mb-4" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="description:unknown" data-magicpath-id="36" data-magicpath-path="ShopSection.tsx">
                   {item.description}
                 </p>
                 
                 <div className="flex items-center justify-between mb-4" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="37" data-magicpath-path="ShopSection.tsx">
                   <div className="flex items-center space-x-2" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-id="38" data-magicpath-path="ShopSection.tsx">
-                    <span className="text-2xl font-bold text-gray-900" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="price:string" data-magicpath-id="39" data-magicpath-path="ShopSection.tsx">
+                    <span className="text-2xl font-bold text-gray-900" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="price:unknown" data-magicpath-id="39" data-magicpath-path="ShopSection.tsx">
                       {item.price}
                     </span>
-                    {item.originalPrice && <span className="text-sm text-gray-500 line-through" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="originalPrice:string" data-magicpath-id="40" data-magicpath-path="ShopSection.tsx">
+                    {item.originalPrice && <span className="text-sm text-gray-500 line-through" data-magicpath-uuid={(item as any)["mpid"] ?? "unsafe"} data-magicpath-field="originalPrice:unknown" data-magicpath-id="40" data-magicpath-path="ShopSection.tsx">
                         {item.originalPrice}
                       </span>}
                   </div>

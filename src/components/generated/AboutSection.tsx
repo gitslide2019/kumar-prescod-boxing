@@ -6,22 +6,22 @@ const AboutSection: React.FC = () => {
     icon: Trophy,
     label: '9x National Champion',
     value: '9',
-    mpid: "8747a5cc-7555-4472-bd64-4f7b76757ac4"
+    mpid: "dfd1b83b-8c34-41b4-9849-3d2cbae3c0fd"
   }, {
     icon: Target,
     label: 'Amateur Record',
     value: '63-8',
-    mpid: "7fb161ea-1c8a-43b8-b167-8bd628e6356f"
+    mpid: "defbe365-388d-4f55-8068-c06a7a22d255"
   }, {
     icon: Zap,
     label: 'Professional Record',
     value: '3-0',
-    mpid: "317f7327-fcdb-4b55-bf82-57063dd5cbaa"
+    mpid: "3db9a53e-2c5e-4947-9c7e-4bdeec20e4e0"
   }, {
     icon: Award,
     label: 'Professional KOs',
     value: '3',
-    mpid: "8ef6389d-20e7-4b2e-9472-78e30a559805"
+    mpid: "13ffda20-a950-49b9-aab4-f846fda16c81"
   }] as any[];
   return <section id="about" className="py-20 bg-gray-900" data-magicpath-id="0" data-magicpath-path="AboutSection.tsx">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-magicpath-id="1" data-magicpath-path="AboutSection.tsx">

@@ -169,7 +169,7 @@ const HeroSection: React.FC = () => {
           delay: 1.6,
           duration: 0.6
         }} data-magicpath-id="40" data-magicpath-path="HeroSection.tsx">
-            <motion.a href="https://tickets.example.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-4 rounded-lg text-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl" whileHover={{
+            <motion.a href="https://www.paypal.com/ncp/payment/DE5Y9AGCDPUBY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-4 rounded-lg text-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl" whileHover={{
             scale: 1.05
           }} whileTap={{
             scale: 0.95

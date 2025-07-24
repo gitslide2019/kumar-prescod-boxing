@@ -4,24 +4,24 @@ import { Trophy, Target, Zap, Award } from 'lucide-react';
 const AboutSection: React.FC = () => {
   const stats = [{
     icon: Trophy,
-    label: 'Professional Wins',
-    value: '15',
-    mpid: "63113f92-848d-4d0c-8faf-73f1a8294b0d"
+    label: '9x National Champion',
+    value: '9',
+    mpid: "0091adc3-0203-44fc-bc0d-14c78ff2b759"
   }, {
     icon: Target,
-    label: 'Knockouts',
-    value: '8',
-    mpid: "b1ebeccb-ffbd-48bb-86cd-6e8dea13634c"
+    label: 'Amateur Record',
+    value: '63-8',
+    mpid: "3e67649b-ac0b-41ad-bf8f-9460e0d896a0"
   }, {
     icon: Zap,
-    label: 'Years Pro',
-    value: '5',
-    mpid: "8854b1f5-0d7e-4c2f-a3c9-4af0c571dc0b"
+    label: 'Professional Record',
+    value: '3-0',
+    mpid: "046408d9-28a1-41c8-bf25-c2cd3110dee1"
   }, {
     icon: Award,
-    label: 'Championships',
-    value: '2',
-    mpid: "ce552d8e-aedb-4874-86d2-0d9123dd4f9b"
+    label: 'Professional KOs',
+    value: '3',
+    mpid: "ba2b0d8f-f10e-42f0-a70a-3140c402103f"
   }] as any[];
   return <section id="about" className="py-20 bg-gray-900" data-magicpath-id="0" data-magicpath-path="AboutSection.tsx">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-magicpath-id="1" data-magicpath-path="AboutSection.tsx">
@@ -84,18 +84,20 @@ const AboutSection: React.FC = () => {
           once: true
         }} className="space-y-6" data-magicpath-id="17" data-magicpath-path="AboutSection.tsx">
             <h3 className="text-2xl md:text-3xl font-bold text-white" data-magicpath-id="18" data-magicpath-path="AboutSection.tsx">
-              The Pride of Oakland
+              From Oakland to the World
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed" data-magicpath-id="19" data-magicpath-path="AboutSection.tsx">
-              Kumar Prescod is a rising star in professional boxing, representing Oakland with 
-              pride and determination. Known for his explosive power and technical precision, 
-              Kumar has quickly made a name for himself in the boxing world.
+              From Oakland, CA. Started boxing at 6 years old. Been on Team USA 2x. 
+              Went Pro at 17ys old. Currently 3-0 with 3 knockouts. Kumar Prescod is a 
+              9x National Champion with an impressive amateur record of 63-8, representing 
+              Oakland with pride and determination.
             </p>
             <p className="text-gray-300 text-lg leading-relaxed" data-magicpath-id="20" data-magicpath-path="AboutSection.tsx">
-              With a professional record that speaks volumes about his dedication and skill, 
-              Kumar continues to train relentlessly, always pushing the boundaries of what's 
-              possible in the ring. His upcoming fight on August 19th promises to be his 
-              biggest challenge yet.
+              Known for his explosive power and technical precision, Kumar has quickly 
+              made a name for himself in the professional boxing world. With his 
+              undefeated professional record and perfect knockout ratio, he continues 
+              to train relentlessly, always pushing the boundaries of what's possible 
+              in the ring.
             </p>
 
             {/* Stats Grid */}
@@ -130,7 +132,8 @@ const AboutSection: React.FC = () => {
             once: true
           }} className="border-l-4 border-orange-500 pl-4 mt-8" data-magicpath-id="26" data-magicpath-path="AboutSection.tsx">
               <p className="text-gray-300 text-lg italic" data-magicpath-id="27" data-magicpath-path="AboutSection.tsx">
-                "Every fight is a chance to prove that Oakland breeds champions. 
+                "I've been grinding since I was 6 years old. From Team USA to turning 
+                pro at 17, every fight is a chance to prove that Oakland breeds champions. 
                 I carry my city's spirit with me into every ring."
               </p>
               <footer className="text-orange-500 font-semibold mt-2" data-magicpath-id="28" data-magicpath-path="AboutSection.tsx">
@@ -156,18 +159,22 @@ const AboutSection: React.FC = () => {
             FIGHT <span className="text-orange-500" data-magicpath-id="31" data-magicpath-path="AboutSection.tsx">RECORD</span>
           </h3>
           <div className="bg-gray-800 rounded-lg p-6 border border-gray-700" data-magicpath-id="32" data-magicpath-path="AboutSection.tsx">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center" data-magicpath-id="33" data-magicpath-path="AboutSection.tsx">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center" data-magicpath-id="33" data-magicpath-path="AboutSection.tsx">
               <div data-magicpath-id="34" data-magicpath-path="AboutSection.tsx">
-                <p className="text-4xl font-bold text-green-500" data-magicpath-id="35" data-magicpath-path="AboutSection.tsx">15</p>
-                <p className="text-gray-400" data-magicpath-id="36" data-magicpath-path="AboutSection.tsx">WINS</p>
+                <p className="text-4xl font-bold text-green-500" data-magicpath-id="35" data-magicpath-path="AboutSection.tsx">3</p>
+                <p className="text-gray-400" data-magicpath-id="36" data-magicpath-path="AboutSection.tsx">PRO WINS</p>
               </div>
               <div data-magicpath-id="37" data-magicpath-path="AboutSection.tsx">
-                <p className="text-4xl font-bold text-red-500" data-magicpath-id="38" data-magicpath-path="AboutSection.tsx">2</p>
-                <p className="text-gray-400" data-magicpath-id="39" data-magicpath-path="AboutSection.tsx">LOSSES</p>
+                <p className="text-4xl font-bold text-red-500" data-magicpath-id="38" data-magicpath-path="AboutSection.tsx">0</p>
+                <p className="text-gray-400" data-magicpath-id="39" data-magicpath-path="AboutSection.tsx">PRO LOSSES</p>
               </div>
               <div data-magicpath-id="40" data-magicpath-path="AboutSection.tsx">
-                <p className="text-4xl font-bold text-orange-500" data-magicpath-id="41" data-magicpath-path="AboutSection.tsx">8</p>
-                <p className="text-gray-400" data-magicpath-id="42" data-magicpath-path="AboutSection.tsx">KNOCKOUTS</p>
+                <p className="text-4xl font-bold text-orange-500" data-magicpath-id="41" data-magicpath-path="AboutSection.tsx">3</p>
+                <p className="text-gray-400" data-magicpath-id="42" data-magicpath-path="AboutSection.tsx">PRO KNOCKOUTS</p>
+              </div>
+              <div data-magicpath-id="43" data-magicpath-path="AboutSection.tsx">
+                <p className="text-4xl font-bold text-blue-500" data-magicpath-id="44" data-magicpath-path="AboutSection.tsx">63-8</p>
+                <p className="text-gray-400" data-magicpath-id="45" data-magicpath-path="AboutSection.tsx">AMATEUR RECORD</p>
               </div>
             </div>
           </div>

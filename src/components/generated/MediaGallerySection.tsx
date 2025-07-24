@@ -23,7 +23,7 @@ const MediaGallerySection: React.FC = () => {
     title: 'Training Session Highlights',
     thumbnail: '/api/placeholder/400/300',
     videoUrl: 'https://www.youtube.com/embed/CE4dtgPuiZY?mute=1&autoplay=1&loop=1&playlist=CE4dtgPuiZY',
-    mpid: "b1c3483b-ef6b-4541-a3fc-50a0a721a22a"
+    mpid: "e15d4651-e2b0-474e-bf9c-beff23734649"
   }, {
     id: 2,
     type: 'video',
@@ -31,7 +31,7 @@ const MediaGallerySection: React.FC = () => {
     title: 'Championship Fight Highlights',
     thumbnail: '/api/placeholder/400/300',
     videoUrl: 'https://www.youtube.com/embed/RxKScq1U8m8?autoplay=1&loop=1&playlist=RxKScq1U8m8',
-    mpid: "7b033e16-4499-4147-904c-754e01634e7d"
+    mpid: "07ce5083-e4b1-41e4-9f33-700f7872e913"
   }, {
     id: 3,
     type: 'video',
@@ -39,7 +39,7 @@ const MediaGallerySection: React.FC = () => {
     title: 'Intense Training Footage',
     thumbnail: '/api/placeholder/400/300',
     videoUrl: 'https://www.youtube.com/embed/pJ91DV4rXww?autoplay=1&loop=1&playlist=pJ91DV4rXww',
-    mpid: "ad92253c-37ed-4abb-8c31-27290fd39de3"
+    mpid: "edf23080-789c-4e40-a5f1-9b65d381dc00"
   }];
   const filteredMedia = mediaItems.filter(item => activeFilter === 'all' || item.category === activeFilter);
   const openModal = (media: MediaItem) => {

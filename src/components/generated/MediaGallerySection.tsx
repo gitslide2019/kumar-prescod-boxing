@@ -18,48 +18,28 @@ const MediaGallerySection: React.FC = () => {
   // Mock data - replace with actual media
   const mediaItems: MediaItem[] = [{
     id: 1,
-    type: 'image',
+    type: 'video',
     category: 'training',
-    title: 'Heavy Bag Training',
+    title: 'Training Session Highlights',
     thumbnail: '/api/placeholder/400/300',
-    mpid: "e647a238-ada0-4a86-9368-ae89fb2d75ee"
+    videoUrl: 'https://www.youtube.com/embed/CE4dtgPuiZY?mute=1&autoplay=1&loop=1&playlist=CE4dtgPuiZY',
+    mpid: "3c08515f-e874-4a18-829b-f4d7f30fb26b"
   }, {
     id: 2,
     type: 'video',
     category: 'fights',
     title: 'Championship Fight Highlights',
     thumbnail: '/api/placeholder/400/300',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    mpid: "f79004c8-00ec-430b-b95c-4c5e669a389f"
+    videoUrl: 'https://www.youtube.com/embed/RxKScq1U8m8?autoplay=1&loop=1&playlist=RxKScq1U8m8',
+    mpid: "cfc64ca5-2a89-49cd-950f-33d1a27d25e0"
   }, {
     id: 3,
-    type: 'image',
-    category: 'training',
-    title: 'Sparring Session',
-    thumbnail: '/api/placeholder/400/300',
-    mpid: "55270bf8-719e-49e0-afff-a475e2f662ce"
-  }, {
-    id: 4,
-    type: 'image',
-    category: 'fights',
-    title: 'Victory Celebration',
-    thumbnail: '/api/placeholder/400/300',
-    mpid: "19c9b9f7-7364-4f1b-949f-deeed6e5e549"
-  }, {
-    id: 5,
     type: 'video',
     category: 'training',
-    title: 'Speed Bag Workout',
+    title: 'Intense Training Footage',
     thumbnail: '/api/placeholder/400/300',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    mpid: "9d8ae182-1916-4ec2-8fa0-df4d07b96e7d"
-  }, {
-    id: 6,
-    type: 'image',
-    category: 'fights',
-    title: 'Ring Entrance',
-    thumbnail: '/api/placeholder/400/300',
-    mpid: "18e95a63-27d7-47d5-8e48-a052ecb3e51c"
+    videoUrl: 'https://www.youtube.com/embed/pJ91DV4rXww?autoplay=1&loop=1&playlist=pJ91DV4rXww',
+    mpid: "db1d6eb3-5e56-4d18-9c1e-5c3031ebf54c"
   }];
   const filteredMedia = mediaItems.filter(item => activeFilter === 'all' || item.category === activeFilter);
   const openModal = (media: MediaItem) => {

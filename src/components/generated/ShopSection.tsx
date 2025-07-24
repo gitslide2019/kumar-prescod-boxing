@@ -83,7 +83,7 @@ const merchandise = [{
   reviews: 127,
   badge: "Best Seller",
   colors: ["Black", "White", "Red"],
-  mpid: "406be1dd-aa19-49d6-9473-6bf46a2f49d9"
+  mpid: "5ad9efaa-3eb2-49a6-b0e1-8a0cd489fe62"
 }, {
   id: "training-hoodie",
   name: "Champion Training Hoodie",
@@ -95,7 +95,7 @@ const merchandise = [{
   reviews: 89,
   badge: "New",
   colors: ["Black", "Gray", "Navy"],
-  mpid: "ebb8b9fb-0e58-42d0-84c1-f9373faaa915"
+  mpid: "35fd0248-7835-454c-8db3-30ed9dfda6c2"
 }, {
   id: "boxing-gloves",
   name: "KP Pro Boxing Gloves",
@@ -107,7 +107,7 @@ const merchandise = [{
   reviews: 45,
   badge: "Pro Grade",
   colors: ["Red", "Black", "White"],
-  mpid: "53e9efb1-2c4f-4a56-b2d1-b100ffec2137"
+  mpid: "9d2ad23d-df82-4de8-87d2-11cbc3413ecc"
 }, {
   id: "gym-bag",
   name: "Champion Gym Bag",
@@ -119,7 +119,7 @@ const merchandise = [{
   reviews: 156,
   badge: "",
   colors: ["Black", "Red"],
-  mpid: "9541e8d3-9214-4c95-8c7e-da16bc743854"
+  mpid: "a5f931ef-2ead-48b4-ae35-b0a4cb48a342"
 }, {
   id: "fight-shorts",
   name: "Official Fight Shorts",
@@ -131,7 +131,7 @@ const merchandise = [{
   reviews: 78,
   badge: "Limited Edition",
   colors: ["Black/Red", "White/Gold"],
-  mpid: "28697029-4646-4774-b140-bba229a88c9e"
+  mpid: "dc5ccbc2-dd13-4842-bde5-00c08beb1e86"
 }, {
   id: "water-bottle",
   name: "Hydration Champion Bottle",
@@ -143,7 +143,7 @@ const merchandise = [{
   reviews: 203,
   badge: "",
   colors: ["Black", "Silver", "Red"],
-  mpid: "45c5606e-fb9a-4f2a-b89d-d3a673c57c8a"
+  mpid: "25b085b3-55de-4a76-8905-4cd6880bee1d"
 }] as any[];
 export default function ShopSection({
   className = ""

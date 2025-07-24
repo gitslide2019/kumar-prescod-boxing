@@ -6,22 +6,22 @@ const AboutSection: React.FC = () => {
     icon: Trophy,
     label: 'Professional Wins',
     value: '15',
-    mpid: "83f9aa94-d0d1-487c-8c7c-4b9d1a5c16f0"
+    mpid: "63113f92-848d-4d0c-8faf-73f1a8294b0d"
   }, {
     icon: Target,
     label: 'Knockouts',
     value: '8',
-    mpid: "bff435fe-68be-4091-9cab-f267c48d3824"
+    mpid: "b1ebeccb-ffbd-48bb-86cd-6e8dea13634c"
   }, {
     icon: Zap,
     label: 'Years Pro',
     value: '5',
-    mpid: "6b84fc97-1c1c-499d-93ad-cdb8fb0d0259"
+    mpid: "8854b1f5-0d7e-4c2f-a3c9-4af0c571dc0b"
   }, {
     icon: Award,
     label: 'Championships',
     value: '2',
-    mpid: "8964e3c4-3790-4c4c-a51c-90b32b950276"
+    mpid: "ce552d8e-aedb-4874-86d2-0d9123dd4f9b"
   }] as any[];
   return <section id="about" className="py-20 bg-gray-900" data-magicpath-id="0" data-magicpath-path="AboutSection.tsx">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-magicpath-id="1" data-magicpath-path="AboutSection.tsx">
@@ -113,8 +113,8 @@ const AboutSection: React.FC = () => {
               once: true
             }} className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500/50 transition-colors" data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-id="22" data-magicpath-path="AboutSection.tsx">
                   <stat.icon className="text-orange-500 mb-2" size={24} data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-id="23" data-magicpath-path="AboutSection.tsx" />
-                  <p className="text-2xl font-bold text-white" data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-field="value:string" data-magicpath-id="24" data-magicpath-path="AboutSection.tsx">{stat.value}</p>
-                  <p className="text-gray-400 text-sm" data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-field="label:string" data-magicpath-id="25" data-magicpath-path="AboutSection.tsx">{stat.label}</p>
+                  <p className="text-2xl font-bold text-white" data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-field="value:unknown" data-magicpath-id="24" data-magicpath-path="AboutSection.tsx">{stat.value}</p>
+                  <p className="text-gray-400 text-sm" data-magicpath-uuid={(stat as any)["mpid"] ?? "unsafe"} data-magicpath-field="label:unknown" data-magicpath-id="25" data-magicpath-path="AboutSection.tsx">{stat.label}</p>
                 </motion.div>)}
             </div>
 

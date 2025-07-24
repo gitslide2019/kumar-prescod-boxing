@@ -5,11 +5,11 @@ const HeroSection: React.FC = () => {
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" data-magicpath-id="0" data-magicpath-path="HeroSection.tsx">
       {/* Background Image */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800" data-magicpath-id="1" data-magicpath-path="HeroSection.tsx">
-        <div className="absolute inset-0 bg-black/50" data-magicpath-id="2" data-magicpath-path="HeroSection.tsx" />
+        <div className="absolute inset-0 bg-black/30" data-magicpath-id="2" data-magicpath-path="HeroSection.tsx" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-magicpath-id="3" data-magicpath-path="HeroSection.tsx">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8" data-magicpath-id="3" data-magicpath-path="HeroSection.tsx">
         <motion.div initial={{
         opacity: 0,
         y: 50
@@ -18,7 +18,28 @@ const HeroSection: React.FC = () => {
         y: 0
       }} transition={{
         duration: 0.8
-      }} className="space-y-8" data-magicpath-id="4" data-magicpath-path="HeroSection.tsx">
+      }} className="space-y-6" data-magicpath-id="4" data-magicpath-path="HeroSection.tsx">
+          {/* Main Fighter Image Placeholder */}
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.9
+        }} animate={{
+          opacity: 1,
+          scale: 1
+        }} transition={{
+          delay: 0.2,
+          duration: 0.8
+        }} className="relative mx-auto w-80 h-96 bg-gradient-to-b from-orange-500/20 to-red-600/20 rounded-lg border border-orange-500/30" data-magicpath-id="5" data-magicpath-path="HeroSection.tsx">
+            <div className="absolute inset-0 flex items-center justify-center" data-magicpath-id="6" data-magicpath-path="HeroSection.tsx">
+              <div className="text-center" data-magicpath-id="7" data-magicpath-path="HeroSection.tsx">
+                <div className="w-32 h-32 bg-orange-500/30 rounded-full mx-auto mb-4 flex items-center justify-center" data-magicpath-id="8" data-magicpath-path="HeroSection.tsx">
+                  <span className="text-white text-4xl font-bold" data-magicpath-id="9" data-magicpath-path="HeroSection.tsx">KP</span>
+                </div>
+                <p className="text-orange-400 text-sm" data-magicpath-id="10" data-magicpath-path="HeroSection.tsx">Fighter Image</p>
+              </div>
+            </div>
+          </motion.div>
+
           {/* "Straight Outta Oakland" Badge */}
           <motion.div initial={{
           opacity: 0,
@@ -27,14 +48,14 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           scale: 1
         }} transition={{
-          delay: 0.2,
+          delay: 0.4,
           duration: 0.6
-        }} className="inline-block" data-magicpath-id="5" data-magicpath-path="HeroSection.tsx">
-            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 px-6 py-3 rounded-lg" data-magicpath-id="6" data-magicpath-path="HeroSection.tsx">
-              <h2 className="text-gray-300 text-lg font-bold tracking-wider" data-magicpath-id="7" data-magicpath-path="HeroSection.tsx">
+        }} className="inline-block" data-magicpath-id="11" data-magicpath-path="HeroSection.tsx">
+            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 px-6 py-3 rounded-lg" data-magicpath-id="12" data-magicpath-path="HeroSection.tsx">
+              <h2 className="text-gray-300 text-lg font-bold tracking-wider" data-magicpath-id="13" data-magicpath-path="HeroSection.tsx">
                 STRAIGHT OUTTA
               </h2>
-              <h3 className="text-white text-2xl font-bold tracking-wider" data-magicpath-id="8" data-magicpath-path="HeroSection.tsx">
+              <h3 className="text-white text-2xl font-bold tracking-wider" data-magicpath-id="14" data-magicpath-path="HeroSection.tsx">
                 OAKLAND
               </h3>
             </div>
@@ -48,32 +69,11 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           x: 0
         }} transition={{
-          delay: 0.4,
-          duration: 0.6
-        }} className="text-right space-y-2" data-magicpath-id="9" data-magicpath-path="HeroSection.tsx">
-            <p className="text-white text-lg tracking-wider" data-magicpath-id="10" data-magicpath-path="HeroSection.tsx">DOORS OPEN 3PM</p>
-            <p className="text-white text-lg tracking-wider" data-magicpath-id="11" data-magicpath-path="HeroSection.tsx">FIRST FIGHT 4PM</p>
-          </motion.div>
-
-          {/* Main Fighter Image Placeholder */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.9
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
           delay: 0.6,
-          duration: 0.8
-        }} className="relative mx-auto w-80 h-96 bg-gradient-to-b from-orange-500/20 to-red-600/20 rounded-lg border border-orange-500/30" data-magicpath-id="12" data-magicpath-path="HeroSection.tsx">
-            <div className="absolute inset-0 flex items-center justify-center" data-magicpath-id="13" data-magicpath-path="HeroSection.tsx">
-              <div className="text-center" data-magicpath-id="14" data-magicpath-path="HeroSection.tsx">
-                <div className="w-32 h-32 bg-orange-500/30 rounded-full mx-auto mb-4 flex items-center justify-center" data-magicpath-id="15" data-magicpath-path="HeroSection.tsx">
-                  <span className="text-white text-4xl font-bold" data-magicpath-id="16" data-magicpath-path="HeroSection.tsx">KP</span>
-                </div>
-                <p className="text-orange-400 text-sm" data-magicpath-id="17" data-magicpath-path="HeroSection.tsx">Fighter Image</p>
-              </div>
-            </div>
+          duration: 0.6
+        }} className="text-center space-y-2" data-magicpath-id="15" data-magicpath-path="HeroSection.tsx">
+            <p className="text-white text-lg tracking-wider" data-magicpath-id="16" data-magicpath-path="HeroSection.tsx">DOORS OPEN 3PM</p>
+            <p className="text-white text-lg tracking-wider" data-magicpath-id="17" data-magicpath-path="HeroSection.tsx">FIRST FIGHT 4PM</p>
           </motion.div>
 
           {/* Fighter Name */}

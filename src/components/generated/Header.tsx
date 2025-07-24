@@ -31,18 +31,21 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8" data-magicpath-id="6" data-magicpath-path="Header.tsx">
-            <button onClick={() => scrollToSection('home')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-magicpath-id="7" data-magicpath-path="Header.tsx">
-              HOME
-            </button>
-            <button onClick={() => scrollToSection('about')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-magicpath-id="8" data-magicpath-path="Header.tsx">
-              ABOUT
-            </button>
-            <button onClick={() => scrollToSection('fights')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-magicpath-id="9" data-magicpath-path="Header.tsx">
-              FIGHTS
-            </button>
-            <button onClick={() => scrollToSection('media')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-magicpath-id="10" data-magicpath-path="Header.tsx">
-              MEDIA
-            </button>
+            <a href="#home" className="text-white hover:text-red-400 transition-colors font-medium">
+              Home
+            </a>
+            <a href="#about" className="text-white hover:text-red-400 transition-colors font-medium">
+              About
+            </a>
+            <a href="#media" className="text-white hover:text-red-400 transition-colors font-medium">
+              Media
+            </a>
+            <a href="#sponsors" className="text-white hover:text-red-400 transition-colors font-medium">
+              Sponsors
+            </a>
+            <a href="#shop" className="text-white hover:text-red-400 transition-colors font-medium">
+              Shop
+            </a>
           </nav>
 
           {/* Get Tickets Button */}
@@ -50,14 +53,14 @@ const Header: React.FC = () => {
           scale: 1.05
         }} whileTap={{
           scale: 0.95
-        }} data-magicpath-id="11" data-magicpath-path="Header.tsx">
-            <span data-magicpath-id="12" data-magicpath-path="Header.tsx">GET TICKETS</span>
-            <ExternalLink size={16} data-magicpath-id="13" data-magicpath-path="Header.tsx" />
+        }} data-magicpath-id="7" data-magicpath-path="Header.tsx">
+            <span data-magicpath-id="8" data-magicpath-path="Header.tsx">GET TICKETS</span>
+            <ExternalLink size={16} data-magicpath-id="9" data-magicpath-path="Header.tsx" />
           </motion.a>
 
           {/* Mobile Menu Button */}
-          <button onClick={toggleMenu} className="md:hidden text-white p-2" aria-label="Toggle menu" data-magicpath-id="14" data-magicpath-path="Header.tsx">
-            {isMenuOpen ? <X size={24} data-magicpath-id="15" data-magicpath-path="Header.tsx" /> : <Menu size={24} data-magicpath-id="16" data-magicpath-path="Header.tsx" />}
+          <button onClick={toggleMenu} className="md:hidden text-white p-2" aria-label="Toggle menu" data-magicpath-id="10" data-magicpath-path="Header.tsx">
+            {isMenuOpen ? <X size={24} data-magicpath-id="11" data-magicpath-path="Header.tsx" /> : <Menu size={24} data-magicpath-id="12" data-magicpath-path="Header.tsx" />}
           </button>
         </div>
 
@@ -71,23 +74,23 @@ const Header: React.FC = () => {
       }} exit={{
         opacity: 0,
         y: -20
-      }} className="md:hidden py-4 border-t border-gray-800" data-magicpath-id="17" data-magicpath-path="Header.tsx">
-            <nav className="flex flex-col space-y-4" data-magicpath-id="18" data-magicpath-path="Header.tsx">
-              <button onClick={() => scrollToSection('home')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="19" data-magicpath-path="Header.tsx">
+      }} className="md:hidden py-4 border-t border-gray-800" data-magicpath-id="13" data-magicpath-path="Header.tsx">
+            <nav className="flex flex-col space-y-4" data-magicpath-id="14" data-magicpath-path="Header.tsx">
+              <button onClick={() => scrollToSection('home')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="15" data-magicpath-path="Header.tsx">
                 HOME
               </button>
-              <button onClick={() => scrollToSection('about')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="20" data-magicpath-path="Header.tsx">
+              <button onClick={() => scrollToSection('about')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="16" data-magicpath-path="Header.tsx">
                 ABOUT
               </button>
-              <button onClick={() => scrollToSection('fights')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="21" data-magicpath-path="Header.tsx">
+              <button onClick={() => scrollToSection('fights')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="17" data-magicpath-path="Header.tsx">
                 FIGHTS
               </button>
-              <button onClick={() => scrollToSection('media')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="22" data-magicpath-path="Header.tsx">
+              <button onClick={() => scrollToSection('media')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left" data-magicpath-id="18" data-magicpath-path="Header.tsx">
                 MEDIA
               </button>
               <a href="https://tickets.example.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors w-fit">
-                <span data-magicpath-id="23" data-magicpath-path="Header.tsx">GET TICKETS</span>
-                <ExternalLink size={16} data-magicpath-id="24" data-magicpath-path="Header.tsx" />
+                <span data-magicpath-id="19" data-magicpath-path="Header.tsx">GET TICKETS</span>
+                <ExternalLink size={16} data-magicpath-id="20" data-magicpath-path="Header.tsx" />
               </a>
             </nav>
           </motion.div>}

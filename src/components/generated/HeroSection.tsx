@@ -6,19 +6,19 @@ const HeroSection: React.FC = () => {
   const videos = [{
     id: '4jftcUAny5E',
     title: 'Kumar Prescod Training',
-    mpid: "b1e96f16-c909-443a-b07e-a649d462cdb1"
+    mpid: "25be3bff-fbf0-4bc4-a501-09d66d0d497d"
   }, {
     id: 'C3zE1Ol1ByA',
     title: 'Kumar Prescod Highlights',
-    mpid: "6964231d-cea0-43b7-aef8-6c0461560bf3"
+    mpid: "6c47835e-f5e3-413f-af21-ce44357f93b6"
   }, {
     id: 'fHaH1vGAhJc',
     title: 'Kumar Prescod Skills',
-    mpid: "de2fece5-c258-46a2-a81e-abbeec9994a6"
+    mpid: "b51f3d5a-c494-45f7-8e9d-8fd4cd624d01"
   }, {
     id: 'caOtbIMgDCQ',
     title: 'Kumar Prescod Boxing Video',
-    mpid: "1fa2b15d-0fe9-4c70-81f3-9b228fa38c6f"
+    mpid: "d6176049-7074-451b-9a34-c1128f729937"
   }] as any[];
   useEffect(() => {
     const interval = setInterval(() => {

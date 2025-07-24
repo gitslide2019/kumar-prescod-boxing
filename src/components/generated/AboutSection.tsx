@@ -6,22 +6,22 @@ const AboutSection: React.FC = () => {
     icon: Trophy,
     label: '9x National Champion',
     value: '9',
-    mpid: "9c58710c-5fd9-4320-b259-b0d45548caf6"
+    mpid: "c6a72dac-f01e-4c79-a246-fa49bc06d55b"
   }, {
     icon: Target,
     label: 'Amateur Record',
     value: '63-8',
-    mpid: "a963b389-e118-458b-bb19-de42842062db"
+    mpid: "1b11c0a7-0b00-4b48-aa1e-8693d5f2840e"
   }, {
     icon: Zap,
     label: 'Professional Record',
     value: '3-0',
-    mpid: "a197248b-1a52-4617-b3bf-6f0a23987cb7"
+    mpid: "19fa9713-619a-43b6-b945-b7f4881491b5"
   }, {
     icon: Award,
     label: 'Professional KOs',
     value: '3',
-    mpid: "3f3a54e5-167a-4c50-bfee-c9285f1428cd"
+    mpid: "fa566fbd-b79c-4b4b-ab87-c16461bc6aaf"
   }] as any[];
   return <section id="about" className="relative py-20 bg-gray-900 overflow-hidden" data-magicpath-id="0" data-magicpath-path="AboutSection.tsx">
       {/* Background Videos */}

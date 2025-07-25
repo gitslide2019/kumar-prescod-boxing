@@ -5,6 +5,7 @@ import AboutSection from './AboutSection';
 import MediaGallerySection from './MediaGallerySection';
 import SponsorSection from './SponsorSection';
 import ShopSection from './ShopSection';
+import AIChatAssistant from '../ai/AIChatAssistant';
 const BoxerWebsite: React.FC = () => {
   return <div className="min-h-screen bg-background">
       <Header />
@@ -43,6 +44,9 @@ const BoxerWebsite: React.FC = () => {
           </div>
         </div>
       </footer>
+      
+      {/* AI Chat Assistant */}
+      <AIChatAssistant />
     </div>;
 };
 export default BoxerWebsite;

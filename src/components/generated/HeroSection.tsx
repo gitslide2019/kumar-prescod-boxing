@@ -5,19 +5,19 @@ const HeroSection: React.FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const videos = [{
     id: '4jftcUAny5E',
-    title: 'Kumar Prescod Training'
+    title: 'Kumar Prescod Boxing Short 1'
   }, {
-    id: 'C3zE1Ol1ByA',
-    title: 'Kumar Prescod Highlights'
+    id: 'C6d7Q5Mal54',
+    title: 'Kumar Prescod Boxing Short 2'
   }, {
-    id: 'fHaH1vGAhJc',
-    title: 'Kumar Prescod Skills'
+    id: 'm5ZvGaWKrrQ',
+    title: 'Kumar Prescod Elite Training From Nationals'
+  }, {
+    id: 'abEB1TwZPko',
+    title: 'Skyler Mauller vs Kumar Prescod (Pro Debut KO)'
   }, {
     id: 'caOtbIMgDCQ',
-    title: 'Kumar Prescod Boxing Video'
-  }, {
-    id: 'XrSmOWRP5kU',
-    title: 'Kumar Prescod Short'
+    title: 'Kumar Prescod Boxing Highlight'
   }] as any[];
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,7 +29,7 @@ const HeroSection: React.FC = () => {
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
-        <iframe key={currentVideoIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${videos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${videos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`} title={videos[currentVideoIndex].title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        <iframe key={currentVideoIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${videos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${videos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={videos[currentVideoIndex].title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
@@ -43,64 +43,7 @@ const HeroSection: React.FC = () => {
         y: 0
       }} transition={{
         duration: 0.8
-      }} className="space-y-6">
-          {/* Main Fighter Image Placeholder */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.9
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          delay: 0.2,
-          duration: 0.8
-        }} className="relative mx-auto w-80 h-96 bg-gradient-to-b from-orange-500/20 to-red-600/20 rounded-lg border border-orange-500/30">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-32 h-32 bg-orange-500/30 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-white text-4xl font-bold">KP</span>
-                </div>
-                <p className="text-orange-400 text-sm">Fighter Image</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* "Straight Outta Oakland" Badge */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.8
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          delay: 0.4,
-          duration: 0.6
-        }} className="inline-block">
-            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 px-6 py-3 rounded-lg">
-              <h2 className="text-gray-300 text-lg font-bold tracking-wider">
-                STRAIGHT OUTTA
-              </h2>
-              <h3 className="text-white text-2xl font-bold tracking-wider">
-                OAKLAND
-              </h3>
-            </div>
-          </motion.div>
-
-          {/* Event Details */}
-          <motion.div initial={{
-          opacity: 0,
-          x: 50
-        }} animate={{
-          opacity: 1,
-          x: 0
-        }} transition={{
-          delay: 0.6,
-          duration: 0.6
-        }} className="text-center space-y-2">
-            <p className="text-white text-lg tracking-wider">DOORS OPEN 3PM</p>
-            <p className="text-white text-lg tracking-wider">FIRST FIGHT 4PM</p>
-          </motion.div>
-
+      }} className="space-y-8">
           {/* Fighter Name */}
           <motion.div initial={{
           opacity: 0,
@@ -109,7 +52,7 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           y: 0
         }} transition={{
-          delay: 0.8,
+          delay: 0.2,
           duration: 0.6
         }}>
             <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 bg-clip-text tracking-wider">
@@ -117,7 +60,7 @@ const HeroSection: React.FC = () => {
             </h1>
           </motion.div>
 
-          {/* Fight Date */}
+          {/* Fight Date & Type */}
           <motion.div initial={{
           opacity: 0,
           y: 30
@@ -125,14 +68,14 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           y: 0
         }} transition={{
-          delay: 1.0,
+          delay: 0.4,
           duration: 0.6
-        }}>
-            <h2 className="text-4xl md:text-6xl font-bold text-orange-500 tracking-wider mb-2">
-              AUGUST 19TH
+        }} className="space-y-4">
+            <h2 className="text-5xl md:text-7xl font-bold text-orange-500 tracking-wider">
+              AUGUST 16TH
             </h2>
-            <div className="bg-red-700 text-white px-6 py-2 inline-block rounded-md">
-              <span className="text-lg font-bold tracking-wider">PROFESSIONAL BOXING</span>
+            <div className="bg-red-700 text-white px-8 py-3 inline-block rounded-md">
+              <span className="text-xl font-bold tracking-wider">PROFESSIONAL BOXING</span>
             </div>
           </motion.div>
 
@@ -144,15 +87,59 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           y: 0
         }} transition={{
-          delay: 1.2,
+          delay: 0.6,
           duration: 0.6
-        }} className="space-y-4">
+        }} className="space-y-3">
             <h3 className="text-3xl md:text-4xl font-bold text-gray-300 tracking-wider">
               OAKLAND MARRIOTT CITY CENTER
             </h3>
-            <p className="text-gray-400 text-lg tracking-wider">
+            <p className="text-gray-400 text-xl tracking-wider">
               1001 BROADWAY, OAKLAND, CA 94607
             </p>
+          </motion.div>
+
+          {/* Event Timing */}
+          <motion.div initial={{
+          opacity: 0,
+          y: 30
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          delay: 0.8,
+          duration: 0.6
+        }} className="text-center space-y-2">
+            <p className="text-white text-2xl font-bold tracking-wider">DOORS OPEN 3PM</p>
+            <p className="text-white text-2xl font-bold tracking-wider">FIRST FIGHT 4PM</p>
+          </motion.div>
+
+          {/* Get Tickets Button - Now Prominent */}
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.8
+        }} animate={{
+          opacity: 1,
+          scale: 1
+        }} transition={{
+          delay: 1.0,
+          duration: 0.6
+        }} className="pt-4">
+            <motion.a 
+              href="https://www.paypal.com/ncp/payment/DE5Y9AGCDPUBY" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center space-x-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-12 py-6 rounded-lg text-2xl font-bold transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 border-2 border-orange-500/20 hover:border-orange-500/40" 
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(249, 115, 22, 0.3)"
+              }} 
+              whileTap={{
+                scale: 0.95
+              }}
+            >
+              <span>GET TICKETS NOW</span>
+              <ExternalLink size={28} />
+            </motion.a>
           </motion.div>
 
           {/* Fight Details Cards */}
@@ -163,45 +150,24 @@ const HeroSection: React.FC = () => {
           opacity: 1,
           y: 0
         }} transition={{
-          delay: 1.4,
+          delay: 1.2,
           duration: 0.6
-        }} className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-4 rounded-lg">
-              <Calendar className="text-orange-500 mx-auto mb-2" size={24} />
-              <p className="text-white font-semibold">August 19, 2024</p>
-              <p className="text-gray-400 text-sm">Fight Night</p>
+        }} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-4">
+            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-6 rounded-lg text-center hover:border-orange-500/50 transition-colors">
+              <Calendar className="text-orange-500 mx-auto mb-3" size={32} />
+              <p className="text-white font-bold text-lg">August 16, 2025</p>
+              <p className="text-gray-400">Fight Night</p>
             </div>
-            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-4 rounded-lg">
-              <Clock className="text-orange-500 mx-auto mb-2" size={24} />
-              <p className="text-white font-semibold">Doors 3PM</p>
-              <p className="text-gray-400 text-sm">First Fight 4PM</p>
+            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-6 rounded-lg text-center hover:border-orange-500/50 transition-colors">
+              <Clock className="text-orange-500 mx-auto mb-3" size={32} />
+              <p className="text-white font-bold text-lg">Doors 3PM</p>
+              <p className="text-gray-400">First Fight 4PM</p>
             </div>
-            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-4 rounded-lg">
-              <MapPin className="text-orange-500 mx-auto mb-2" size={24} />
-              <p className="text-white font-semibold">Oakland, CA</p>
-              <p className="text-gray-400 text-sm">Marriott City Center</p>
+            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 p-6 rounded-lg text-center hover:border-orange-500/50 transition-colors">
+              <MapPin className="text-orange-500 mx-auto mb-3" size={32} />
+              <p className="text-white font-bold text-lg">Oakland, CA</p>
+              <p className="text-gray-400">Marriott City Center</p>
             </div>
-          </motion.div>
-
-          {/* Get Tickets Button */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.8
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          delay: 1.6,
-          duration: 0.6
-        }}>
-            <motion.a href="https://www.paypal.com/ncp/payment/DE5Y9AGCDPUBY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-4 rounded-lg text-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl" whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <span>GET TICKETS NOW</span>
-              <ExternalLink size={24} />
-            </motion.a>
           </motion.div>
         </motion.div>
       </div>

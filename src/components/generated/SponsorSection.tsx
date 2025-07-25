@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Trophy, Target, Dumbbell, Calendar, Star, Crown, Users, DollarSign, X, ChevronRight } from "lucide-react";
+import { Trophy, Target, Dumbbell, Calendar, Star, Crown, Users, DollarSign, X, ChevronRight, CreditCard, Bot } from "lucide-react";
+import MockSponsorPayment from '../payments/MockSponsorPayment';
 
 // Simple UI components to replace ShadCN imports
 const Card = ({
@@ -101,7 +102,9 @@ const sponsorPackages = [{
     public: false
   }],
   featured: false,
-  color: "from-blue-500 to-blue-600"
+  color: "from-blue-900 to-blue-800",
+  buttonColor: "bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700",
+  progressColor: "from-blue-900 to-blue-800"
 }, {
   id: "fight-sponsor",
   title: "Fight Night Sponsor",
@@ -125,7 +128,9 @@ const sponsorPackages = [{
     public: false
   }],
   featured: true,
-  color: "from-red-500 to-red-600"
+  color: "from-teal-700 to-teal-600",
+  buttonColor: "bg-gradient-to-r from-teal-700 to-teal-600 hover:from-teal-600 hover:to-teal-500",
+  progressColor: "from-teal-700 to-teal-600"
 }, {
   id: "equipment-sponsor",
   title: "Equipment Partner",
@@ -145,7 +150,9 @@ const sponsorPackages = [{
     public: true
   }],
   featured: false,
-  color: "from-green-500 to-green-600"
+  color: "from-slate-600 to-slate-500",
+  buttonColor: "bg-gradient-to-r from-slate-600 to-slate-500 hover:from-slate-500 hover:to-slate-400",
+  progressColor: "from-slate-600 to-slate-500"
 }, {
   id: "career-sponsor",
   title: "Career Champion",
@@ -165,32 +172,168 @@ const sponsorPackages = [{
     public: false
   }],
   featured: true,
-  color: "from-purple-500 to-purple-600"
+  color: "from-red-800 to-red-700",
+  buttonColor: "bg-gradient-to-r from-red-800 to-red-700 hover:from-red-700 hover:to-red-600",
+  progressColor: "from-red-800 to-red-700"
 }] as any[];
 export default function SponsorSection({
   className = ""
 }: SponsorSectionProps) {
   const [selectedPackage, setSelectedPackage] = React.useState<string | null>(null);
+  const [paymentPackage, setPaymentPackage] = React.useState<string | null>(null);
+  const [showAIRecommendation, setShowAIRecommendation] = React.useState(false);
+  const [aiRecommendation, setAIRecommendation] = React.useState<string | null>(null);
+  const [videoSoundEnabled, setVideoSoundEnabled] = React.useState(false);
+  const [userHasInteracted, setUserHasInteracted] = React.useState(false);
+  const [videoKey, setVideoKey] = React.useState(0);
+  const [videoLoaded, setVideoLoaded] = React.useState(false);
+  
+  const sponsorVideo = {
+    id: 'C663b1dAhtA',
+    title: 'Turning Pro the Raw Way'
+  };
+
   const selectedPkg = selectedPackage ? sponsorPackages.find(pkg => pkg.id === selectedPackage) : null;
+  const paymentPkg = paymentPackage ? sponsorPackages.find(pkg => pkg.id === paymentPackage) : null;
+
+  const handlePaymentSuccess = (paymentDetails: any) => {
+    console.log('Payment successful:', paymentDetails);
+    // Here you would typically update the backend, send confirmation emails, etc.
+    setPaymentPackage(null);
+    setSelectedPackage(null);
+    // You could show a success message or update the UI to reflect the new sponsorship
+  };
+
+  // Handle user interaction to enable video sound
+  const handleUserInteraction = React.useCallback(() => {
+    if (!userHasInteracted) {
+      setUserHasInteracted(true);
+      // Small delay to ensure the state change is recognized
+      setTimeout(() => {
+        setVideoSoundEnabled(true);
+        setVideoKey(prev => prev + 1); // Force iframe reload with sound
+      }, 100);
+    }
+  }, [userHasInteracted]);
+
+  // Add global click listener for user interaction
+  React.useEffect(() => {
+    const handleGlobalClick = () => {
+      handleUserInteraction();
+    };
+
+    document.addEventListener('click', handleGlobalClick);
+    document.addEventListener('touchstart', handleGlobalClick);
+
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('touchstart', handleGlobalClick);
+    };
+  }, [handleUserInteraction]);
+
+  // Generate optimized YouTube URL based on interaction state
+  const getVideoUrl = React.useCallback(() => {
+    const baseUrl = `https://www.youtube.com/embed/${sponsorVideo.id}`;
+    const params = new URLSearchParams({
+      autoplay: '1',
+      mute: videoSoundEnabled ? '0' : '1',
+      loop: '1',
+      playlist: sponsorVideo.id,
+      controls: '0',
+      showinfo: '0',
+      rel: '0',
+      iv_load_policy: '3',
+      modestbranding: '1',
+      playsinline: '1',
+      start: '0',
+      enablejsapi: '1',
+      origin: window.location.origin,
+      // Additional parameters for better autoplay and loop support
+      widget_referrer: window.location.origin,
+      cc_load_policy: '0',
+      disablekb: '1',
+      fs: '0'
+    });
+    
+    return `${baseUrl}?${params.toString()}`;
+  }, [sponsorVideo.id, videoSoundEnabled]);
+
+  // AI-powered sponsor matching
+  const generateAIRecommendation = (companyType: string, budget: string, goals: string) => {
+    const budgetNum = parseInt(budget.replace(/[$,]/g, '')) || 0;
+    
+    let recommendation = "";
+    
+    if (budgetNum <= 2000) {
+      recommendation = `Based on your budget and ${companyType} business type, I recommend the **Equipment Partner** package ($1,500). This provides excellent brand visibility with product placement opportunities and training session highlights. It's perfect for ${companyType} companies looking to build authentic connections with boxing fans.`;
+    } else if (budgetNum <= 3000) {
+      recommendation = `Perfect fit! The **Training Camp Sponsor** package ($2,500) aligns with your ${companyType} business and budget. You'll get behind-the-scenes content, social media features, and direct association with Kumar's training dedication - ideal for building brand trust and engagement.`;
+    } else if (budgetNum <= 6000) {
+      recommendation = `Excellent choice for ${companyType}! The **Fight Night Sponsor** package ($5,000) offers maximum exposure with ringside seats, logo placement on fight shorts, and social media shout-outs. This high-visibility package delivers exceptional ROI for businesses targeting sports enthusiasts.`;
+    } else {
+      recommendation = `For a ${companyType} business with your budget, the **Career Champion** package ($10,000) provides unmatched value. You'll get year-long brand partnership, exclusive content creation, and custom promotional campaigns. This comprehensive package builds lasting brand association with a rising boxing star.`;
+    }
+
+    if (goals.toLowerCase().includes('awareness')) {
+      recommendation += "\n\n**AI Insight**: Your brand awareness goals align perfectly with boxing's passionate fanbase. Kumar's growing social media presence and fight coverage will amplify your brand message to engaged audiences.";
+    }
+    
+    if (goals.toLowerCase().includes('local') || goals.toLowerCase().includes('oakland')) {
+      recommendation += "\n\n**Local Focus**: As Kumar represents Oakland pride, your local business will benefit from strong community connection and hometown hero association.";
+    }
+
+    setAIRecommendation(recommendation);
+    setShowAIRecommendation(true);
+  };
   return <section className={`relative py-20 bg-gradient-to-br from-gray-50 to-white overflow-hidden ${className}`} id="sponsors">
-      {/* Background Videos */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
         
-        {/* First video - main background */}
-        <iframe className="absolute inset-0 w-full h-full object-cover" src="https://www.youtube.com/embed/u7M08hC8dZk?autoplay=1&mute=0&loop=1&playlist=u7M08hC8dZk&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowFullScreen style={{
-        pointerEvents: 'none'
-      }} />
+        {/* Turning Pro the Raw Way Video */}
+        <iframe 
+          key={videoKey}
+          className="absolute inset-0 w-full h-full object-cover" 
+          src={getVideoUrl()}
+          title={sponsorVideo.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+          allowFullScreen 
+          style={{ 
+            pointerEvents: 'none',
+            border: 'none',
+            outline: 'none'
+          }}
+          loading="eager"
+          referrerPolicy="strict-origin-when-cross-origin"
+          onLoad={() => setVideoLoaded(true)}
+        />
         
-        {/* Second video - overlay blend */}
-        <iframe className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay" src="https://www.youtube.com/embed/mOd7RWzusAU?autoplay=1&mute=1&loop=1&playlist=mOd7RWzusAU&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowFullScreen style={{
-        pointerEvents: 'none'
-      }} />
+        {/* Sound activation overlay - shown until user interacts */}
+        {!userHasInteracted && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <div className="bg-black/60 backdrop-blur-sm rounded-2xl p-6 text-white text-center border border-white/20 animate-pulse">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-600/80 flex items-center justify-center">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2">Click anywhere to enable sound</h3>
+              <p className="text-sm text-gray-300">Experience Kumar's journey with audio</p>
+            </div>
+          </div>
+        )}
         
-        {/* Third video - subtle overlay */}
-        <iframe className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-soft-light" src="https://www.youtube.com/embed/C6d7Q5Mal54?autoplay=1&mute=1&loop=1&playlist=C6d7Q5Mal54&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowFullScreen style={{
-        pointerEvents: 'none'
-      }} />
+        {/* Sound enabled indicator - briefly shown after activation */}
+        {userHasInteracted && videoSoundEnabled && (
+          <div className="absolute top-4 right-4 z-20">
+            <div className="bg-green-600/90 backdrop-blur-sm rounded-full p-3 text-white animate-fade-in-out">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -214,7 +357,7 @@ export default function SponsorSection({
           const IconComponent = pkg.icon;
           const progressPercentage = pkg.raised / pkg.goal * 100;
           const isCompleted = pkg.raised >= pkg.goal;
-          return <Card key={pkg.id} className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer bg-white/95 backdrop-blur-sm border-white/20 ${pkg.featured ? 'ring-2 ring-red-500 scale-105' : ''}`} onClick={() => setSelectedPackage(pkg.id)}>
+          return <Card key={pkg.id} className={`relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer bg-white/95 backdrop-blur-sm border-white/20 ${pkg.featured ? 'ring-2 ring-red-500 scale-105' : ''} ${selectedPackage === pkg.id ? 'ring-4 ring-blue-400 shadow-2xl scale-105 bg-blue-50/90' : ''}`} onClick={() => setSelectedPackage(pkg.id)}>
                 {pkg.featured && <div className="absolute top-0 right-0 bg-red-500 text-white px-3 py-1 text-xs font-bold">
                     POPULAR
                   </div>}
@@ -248,7 +391,7 @@ export default function SponsorSection({
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className={`h-2 rounded-full bg-gradient-to-r ${pkg.color} transition-all duration-500`} style={{
+                      <div className={`h-2 rounded-full bg-gradient-to-r ${pkg.progressColor} transition-all duration-500 ${selectedPackage === pkg.id ? 'h-3 shadow-lg animate-pulse' : ''}`} style={{
                     width: `${Math.min(progressPercentage, 100)}%`
                   }}></div>
                     </div>
@@ -278,12 +421,26 @@ export default function SponsorSection({
                       </div>
                     </div>}
                   
-                  <Button className={`w-full ${isCompleted ? 'bg-green-600 hover:bg-green-700' : `bg-gradient-to-r ${pkg.color} hover:opacity-90`} text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200`} onClick={e => {
+                  <div className="space-y-2">
+                    <Button className={`w-full ${isCompleted ? 'bg-green-600 hover:bg-green-700' : pkg.buttonColor} text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95`} onClick={e => {
                 e.stopPropagation();
                 setSelectedPackage(pkg.id);
               }}>
-                    {isCompleted ? 'View Details' : 'Learn More'}
-                  </Button>
+                      {isCompleted ? 'View Details' : 'Learn More'}
+                    </Button>
+                    {!isCompleted && (
+                      <Button 
+                        className="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm"
+                        onClick={e => {
+                          e.stopPropagation();
+                          setPaymentPackage(pkg.id);
+                        }}
+                      >
+                        <CreditCard className="w-4 h-4 mr-2" />
+                        Quick Sponsor
+                      </Button>
+                    )}
+                  </div>
                 </CardContent>
               </Card>;
         })}
@@ -325,7 +482,7 @@ export default function SponsorSection({
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                        <div className={`h-3 rounded-full bg-gradient-to-r ${selectedPkg.color} transition-all duration-500`} style={{
+                        <div className={`h-3 rounded-full bg-gradient-to-r ${selectedPkg.progressColor} transition-all duration-500 shadow-lg animate-pulse`} style={{
                       width: `${Math.min(selectedPkg.raised / selectedPkg.goal * 100, 100)}%`
                     }}></div>
                       </div>
@@ -374,12 +531,27 @@ export default function SponsorSection({
                       </div>}
 
                     {/* Call to Action */}
-                    <div className="mt-8">
-                      <Button className={`w-full ${selectedPkg.raised >= selectedPkg.goal ? 'bg-green-600 hover:bg-green-700' : `bg-gradient-to-r ${selectedPkg.color} hover:opacity-90`} text-white font-semibold py-3 px-6 rounded-lg text-lg`}>
-                        {selectedPkg.raised >= selectedPkg.goal ? 'Package Fully Funded' : 'Choose This Package'}
-                      </Button>
+                    <div className="mt-8 space-y-3">
+                      {selectedPkg.raised >= selectedPkg.goal ? (
+                        <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg">
+                          Package Fully Funded
+                        </Button>
+                      ) : (
+                        <>
+                          <Button 
+                            className={`w-full ${selectedPkg.buttonColor} text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center`}
+                            onClick={() => setPaymentPackage(selectedPkg.id)}
+                          >
+                            <CreditCard className="w-5 h-5 mr-2" />
+                            Sponsor with Stripe
+                          </Button>
+                          <Button className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300">
+                            Contact for Custom Package
+                          </Button>
+                        </>
+                      )}
                       <p className="text-sm text-gray-500 text-center mt-2">
-                        Contact us to discuss this sponsorship opportunity
+                        Secure payment processing • Tax-deductible receipts available
                       </p>
                     </div>
                   </div>
@@ -387,6 +559,125 @@ export default function SponsorSection({
               </div>
             </div>
           </div>}
+
+        {/* Mock Payment Modal */}
+        {paymentPkg && (
+          <MockSponsorPayment
+            packageDetails={{
+              id: paymentPkg.id,
+              title: paymentPkg.title,
+              price: paymentPkg.price,
+              priceAmount: parseInt(paymentPkg.price.replace(/[$,]/g, '')),
+              description: paymentPkg.description,
+              buttonColor: paymentPkg.buttonColor
+            }}
+            onClose={() => setPaymentPackage(null)}
+            onSuccess={handlePaymentSuccess}
+          />
+        )}
+
+        {/* AI-Powered Recommendation Section */}
+        <div className="mb-16 bg-gradient-to-r from-blue-900/90 to-purple-900/90 backdrop-blur-sm rounded-2xl p-8 text-white border border-white/10">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
+              <Bot className="w-6 h-6 mr-2" />
+              AI Sponsor Matching
+            </h3>
+            <p className="text-blue-100 max-w-2xl mx-auto">
+              Let our AI analyze your business and recommend the perfect sponsorship package tailored to your goals and budget.
+            </p>
+          </div>
+          
+          {!showAIRecommendation ? (
+            <div className="max-w-2xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Business Type</label>
+                  <select id="businessType" className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40">
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Fitness">Fitness</option>
+                    <option value="Food & Beverage">Food & Beverage</option>
+                    <option value="Financial Services">Financial Services</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Local Business">Local Business</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Budget Range</label>
+                  <select id="budget" className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40">
+                    <option value="$1,000-$2,000">$1,000-$2,000</option>
+                    <option value="$2,000-$5,000">$2,000-$5,000</option>
+                    <option value="$5,000-$10,000">$5,000-$10,000</option>
+                    <option value="$10,000+">$10,000+</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Primary Goal</label>
+                  <select id="goals" className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40">
+                    <option value="Brand Awareness">Brand Awareness</option>
+                    <option value="Local Market">Local Market</option>
+                    <option value="Sports Audience">Sports Audience</option>
+                    <option value="Community Engagement">Community Engagement</option>
+                    <option value="Product Launch">Product Launch</option>
+                  </select>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  const businessType = (document.getElementById('businessType') as HTMLSelectElement).value;
+                  const budget = (document.getElementById('budget') as HTMLSelectElement).value;
+                  const goals = (document.getElementById('goals') as HTMLSelectElement).value;
+                  generateAIRecommendation(businessType, budget, goals);
+                }}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center"
+              >
+                <Star className="w-5 h-5 mr-2" />
+                Get AI Recommendation
+              </button>
+            </div>
+          ) : (
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-6">
+                <h4 className="text-xl font-bold mb-4 flex items-center">
+                  <Star className="w-5 h-5 mr-2 text-yellow-400" />
+                  AI Recommendation
+                </h4>
+                <div className="text-blue-100 leading-relaxed whitespace-pre-line">
+                  {aiRecommendation}
+                </div>
+              </div>
+              <div className="text-center">
+                <button
+                  onClick={() => setShowAIRecommendation(false)}
+                  className="mr-4 bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-lg transition-colors"
+                >
+                  Try Again
+                </button>
+                <button
+                  onClick={() => {
+                    // Find recommended package and open it
+                    const recommendation = aiRecommendation?.toLowerCase() || '';
+                    let packageId = '';
+                    if (recommendation.includes('equipment partner')) packageId = 'equipment-sponsor';
+                    else if (recommendation.includes('training camp')) packageId = 'training-camp';
+                    else if (recommendation.includes('fight night')) packageId = 'fight-sponsor';
+                    else if (recommendation.includes('career champion')) packageId = 'career-sponsor';
+                    
+                    if (packageId) {
+                      setSelectedPackage(packageId);
+                      setShowAIRecommendation(false);
+                    }
+                  }}
+                  className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-6 py-2 rounded-lg transition-all duration-300"
+                >
+                  View Recommended Package
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Call to Action */}
         <div className="text-center bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-sm rounded-2xl p-12 text-white border border-white/10">

@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Zap, Award } from 'lucide-react';
 const AboutSection: React.FC = () => {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const aboutVideos = [{
+    id: 'm5ZvGaWKrrQ',
+    title: 'Kumar Prescod Elite Training From Nationals'
+  }, {
+    id: 'YKGBDJJjCxo',
+    title: 'The Young Raw One'
+  }] as any[];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideoIndex(prevIndex => prevIndex === aboutVideos.length - 1 ? 0 : prevIndex + 1);
+    }, 30000); // Change video every 30 seconds
+
+    return () => clearInterval(interval);
+  }, [aboutVideos.length]);
   const stats = [{
     icon: Trophy,
     label: '9x National Champion',
@@ -20,11 +36,18 @@ const AboutSection: React.FC = () => {
     value: '3'
   }] as any[];
   return <section id="about" className="relative py-20 bg-gray-900 overflow-hidden">
-      {/* Background Videos */}
-      <div className="absolute inset-0 opacity-60">
-        <iframe className="absolute top-0 left-0 w-1/2 h-full object-cover" src="https://www.youtube.com/embed/m5ZvGaWKrrQ?autoplay=1&mute=1&loop=1&playlist=m5ZvGaWKrrQ&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" title="Kumar's Journey Video 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-        <iframe className="absolute top-0 right-0 w-1/2 h-full object-cover" src="https://www.youtube.com/embed/3mj7iYfKQxE?autoplay=1&mute=1&loop=1&playlist=3mj7iYfKQxE&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" title="Kumar's Journey Video 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-        <div className="absolute inset-0 bg-gray-900/50" />
+      {/* Background Video */}
+      <div className="absolute inset-0">
+        <iframe 
+          key={currentVideoIndex} 
+          className="w-full h-full object-cover" 
+          src={`https://www.youtube.com/embed/${aboutVideos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${aboutVideos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} 
+          title={aboutVideos[currentVideoIndex].title} 
+          frameBorder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowFullScreen 
+        />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,15 +81,12 @@ const AboutSection: React.FC = () => {
         }} viewport={{
           once: true
         }} className="relative">
-            <div className="relative w-full h-96 bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-lg border border-orange-500/30 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-orange-500/30 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white text-4xl font-bold">KP</span>
-                  </div>
-                  <p className="text-orange-400 text-sm">Professional Photo</p>
-                </div>
-              </div>
+            <div className="relative w-full h-96 rounded-lg border border-orange-500/30 overflow-hidden">
+              <img 
+                src="/images/fights/kumar-about-photo.png" 
+                alt="Kumar Prescod About Photo" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -bottom-4 -right-4 bg-orange-600 text-white p-4 rounded-lg shadow-lg">
               <p className="text-sm font-bold">STRAIGHT OUTTA</p>
@@ -145,6 +165,122 @@ const AboutSection: React.FC = () => {
             </motion.blockquote>
           </motion.div>
         </div>
+
+        {/* Interactive Career Timeline */}
+        <motion.div initial={{
+        opacity: 0,
+        y: 50
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: 0.8
+      }} viewport={{
+        once: true
+      }} className="mt-20">
+          <h3 className="text-3xl font-bold text-white text-center mb-12">
+            CAREER <span className="text-orange-500">TIMELINE</span>
+          </h3>
+          
+          {/* Timeline Container */}
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-orange-500 h-full"></div>
+            
+            {/* Timeline Items */}
+            <div className="space-y-12">
+              {/* Age 6 - Started Boxing */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative flex items-center"
+              >
+                <div className="w-1/2 pr-8 text-right">
+                  <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500/50 transition-colors">
+                    <h4 className="text-xl font-bold text-orange-500 mb-2">Age 6</h4>
+                    <p className="text-white font-semibold">Started Boxing</p>
+                    <p className="text-gray-400 text-sm">Oakland, CA - The journey begins</p>
+                  </div>
+                </div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-gray-900"></div>
+                <div className="w-1/2 pl-8"></div>
+              </motion.div>
+
+              {/* Amateur Career */}
+              <motion.div 
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="relative flex items-center"
+              >
+                <div className="w-1/2 pr-8"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-gray-900"></div>
+                <div className="w-1/2 pl-8">
+                  <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-colors">
+                    <h4 className="text-xl font-bold text-blue-500 mb-2">Amateur Years</h4>
+                    <p className="text-white font-semibold">9x National Champion</p>
+                    <p className="text-gray-400 text-sm">Record: 63-8 | Dominated amateur boxing</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Team USA */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative flex items-center"
+              >
+                <div className="w-1/2 pr-8 text-right">
+                  <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-red-500/50 transition-colors">
+                    <h4 className="text-xl font-bold text-red-500 mb-2">Team USA</h4>
+                    <p className="text-white font-semibold">2x Team USA Member</p>
+                    <p className="text-gray-400 text-sm">Represented the United States internationally</p>
+                  </div>
+                </div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full border-4 border-gray-900"></div>
+                <div className="w-1/2 pl-8"></div>
+              </motion.div>
+
+              {/* Turned Pro at 17 */}
+              <motion.div 
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="relative flex items-center"
+              >
+                <div className="w-1/2 pr-8"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-gray-900"></div>
+                <div className="w-1/2 pl-8">
+                  <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-green-500/50 transition-colors">
+                    <h4 className="text-xl font-bold text-green-500 mb-2">Age 17</h4>
+                    <p className="text-white font-semibold">Turned Professional</p>
+                    <p className="text-gray-400 text-sm">Youngest to turn pro in his class</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Professional Record */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="relative flex items-center"
+              >
+                <div className="w-1/2 pr-8 text-right">
+                  <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500/50 transition-colors">
+                    <h4 className="text-xl font-bold text-orange-500 mb-2">Present</h4>
+                    <p className="text-white font-semibold">Professional Record</p>
+                    <p className="text-gray-400 text-sm">3-0 with 3 KOs | 100% Knockout Rate</p>
+                  </div>
+                </div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-orange-500 rounded-full border-4 border-gray-900 animate-pulse"></div>
+                <div className="w-1/2 pl-8"></div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Fight Record Section */}
         <motion.div initial={{

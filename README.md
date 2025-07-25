@@ -1,54 +1,141 @@
-# React + TypeScript + Vite
+# Kumar Prescod Boxing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional boxing website for Kumar Prescod, featuring his career highlights, upcoming fights, merchandise, and sponsorship opportunities.
 
-Currently, two official plugins are available:
+## 🥊 About Kumar Prescod
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Kumar Prescod is a professional boxer from Oakland, CA with an impressive record:
+- **9x National Champion**
+- **Amateur Record**: 63-8
+- **Professional Record**: 3-0 (3 KOs)
+- **Started boxing at age 6**
+- **Turned pro at age 17**
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🎥 **Dynamic Video Backgrounds** - Rotating YouTube videos showcasing Kumar's fights and training
+- 📱 **Responsive Design** - Optimized for mobile, tablet, and desktop
+- 🛍️ **E-commerce Shop** - Official merchandise with secure payment processing
+- 💰 **Sponsorship Packages** - Multiple tiers for business partnerships
+- 📸 **Media Gallery** - Filterable collection of fight videos, training photos, and journey content
+- 🎫 **Ticket Sales** - Direct integration for upcoming fight events
+- ✨ **Smooth Animations** - Framer Motion powered interactions
+- 🤖 **AI Chat Assistant** - Interactive support for visitors
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Forms**: React Hook Form + Zod validation
+- **Payments**: Stripe integration
+- **Video**: YouTube API integration
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/kumar-prescod-boxing.git
+cd kumar-prescod-boxing
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+2. Install dependencies:
+```bash
+npm install --legacy-peer-deps
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and visit `http://localhost:5173`
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── generated/          # Main website components
+│   │   ├── BoxerWebsite.tsx
+│   │   ├── Header.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── AboutSection.tsx
+│   │   ├── MediaGallerySection.tsx
+│   │   ├── SponsorSection.tsx
+│   │   └── ShopSection.tsx
+│   ├── ai/                 # AI chat assistant
+│   └── payments/           # Payment processing
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility functions
+├── settings/               # Theme and configuration
+└── main.tsx               # Application entry point
+```
+
+## 🎯 Key Sections
+
+### Hero Section
+- Dynamic video backgrounds
+- Fight event information
+- Call-to-action for tickets
+
+### About Section
+- Career timeline
+- Fight statistics
+- Personal story
+
+### Media Gallery
+- Filterable content (videos, photos, training, fights, journey)
+- YouTube video integration
+- Interactive modal views
+
+### Sponsorship
+- Multiple package tiers
+- AI-powered recommendations
+- Secure payment processing
+
+### Shop
+- Official merchandise
+- Product categories
+- Shopping cart functionality
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+
+## 🌐 Deployment
+
+The site is optimized for deployment on:
+- Vercel
+- Netlify
+- GitHub Pages
+- Any static hosting service
+
+## 📝 License
+
+This project is private and proprietary. All rights reserved.
+
+## 🤝 Contributing
+
+This is a private project for Kumar Prescod's professional boxing career.
+
+## 📞 Contact
+
+For business inquiries or sponsorship opportunities, please contact through the website.
+
+---
+
+**Built with ❤️ for Kumar Prescod's boxing career**

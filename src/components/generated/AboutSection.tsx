@@ -9,7 +9,7 @@ interface Video {
 }
 
 interface Stat {
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
   label: string;
   value: string;
 }

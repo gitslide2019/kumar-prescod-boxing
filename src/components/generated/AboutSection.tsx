@@ -87,7 +87,7 @@ const AboutSection: React.FC = () => {
         once: true
       }} className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4">
-            ABOUT <span className="text-orange-500">KUMAR</span>
+            ABOUT <span className="text-orange-500">KUMAR "THE RAW ONE"</span>
           </h2>
           <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
         </motion.div>

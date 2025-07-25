@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           x: 0
         }} className="flex-shrink-0">
             <h1 className="text-xl font-bold text-white">
-              KUMAR <span className="text-orange-500">PRESCOD</span>
+              KUMAR <span className="text-orange-500">"THE RAW ONE"</span>
             </h1>
           </motion.div>
 

@@ -76,6 +76,11 @@ const HeroSection: React.FC = () => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 bg-clip-text tracking-wider">
               KUMAR PRESCOD
             </h1>
+            <div className="mt-4">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-wider">
+                "THE RAW ONE"
+              </span>
+            </div>
           </motion.div>
 
           {/* Fight Date & Type */}

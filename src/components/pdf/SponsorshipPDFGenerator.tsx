@@ -134,7 +134,7 @@ const SponsorshipPDFDocument: React.FC<SponsorshipPDFProps> = ({ data }) => (
     <Page size="A4" style={styles.page}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>KUMAR PRESCOD</Text>
+        <Text style={styles.title}>KUMAR "THE RAW ONE" PRESCOD</Text>
         <Text style={styles.subtitle}>Professional Boxing Sponsorship Opportunities</Text>
         {data.companyName && <Text style={styles.subtitle}>Prepared for {data.companyName}</Text>}
       </View>
@@ -214,7 +214,7 @@ const SponsorshipPDFDocument: React.FC<SponsorshipPDFProps> = ({ data }) => (
       </View>
 
       <Text style={styles.footer}>
-        © 2024 Kumar Prescod Boxing. All rights reserved. | Generated on {new Date().toLocaleDateString()}
+        © 2024 Kumar "The Raw One" Prescod Boxing. All rights reserved. | Generated on {new Date().toLocaleDateString()}
       </Text>
     </Page>
   </Document>

@@ -355,7 +355,7 @@ export default function SponsorSection({
             Partnership Opportunities
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Sponsor Kumar's Journey
+            Sponsor Kumar "The Raw One"
           </h2>
           <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
             Join Kumar Prescod on his path to championship glory. Choose a sponsorship package 

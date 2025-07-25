@@ -205,33 +205,6 @@ export default function SponsorSection({
     // You could show a success message or update the UI to reflect the new sponsorship
   };
 
-  // Generate optimized YouTube URL based on master audio state
-  const getVideoUrl = React.useCallback(() => {
-    const baseUrl = `https://www.youtube.com/embed/${sponsorVideo.id}`;
-    const params = new URLSearchParams({
-      autoplay: '1',
-      mute: masterAudioEnabled ? '0' : '1',
-      loop: '1',
-      playlist: sponsorVideo.id,
-      controls: '0',
-      showinfo: '0',
-      rel: '0',
-      iv_load_policy: '3',
-      modestbranding: '1',
-      playsinline: '1',
-      start: '0',
-      enablejsapi: '1',
-      origin: window.location.origin,
-      // Additional parameters for better autoplay and loop support
-      widget_referrer: window.location.origin,
-      cc_load_policy: '0',
-      disablekb: '1',
-      fs: '0'
-    });
-    
-    return `${baseUrl}?${params.toString()}`;
-  }, [sponsorVideo.id, masterAudioEnabled]);
-
   // Reload video when audio state changes
   React.useEffect(() => {
     setVideoKey(prev => prev + 1);
@@ -273,7 +246,7 @@ export default function SponsorSection({
         <iframe 
           key={videoKey}
           className="absolute inset-0 w-full h-full object-cover" 
-          src={getVideoUrl()}
+          src={`https://www.youtube.com/embed/${sponsorVideo.id}?autoplay=1&mute=${masterAudioEnabled ? '0' : '1'}&loop=1&playlist=${sponsorVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&start=0&enablejsapi=1&origin=${window.location.origin}&widget_referrer=${window.location.origin}&cc_load_policy=0&disablekb=1&fs=0`}
           title={sponsorVideo.title}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 

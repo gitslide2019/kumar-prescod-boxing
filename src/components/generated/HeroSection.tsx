@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, MapPin, Clock, Volume2, VolumeX } from 'lucide-react';
 import { useVideoRotation } from '@/hooks/use-video-rotation';
+import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 interface Video {
   id: string;
@@ -27,7 +28,22 @@ const HeroSection: React.FC = () => {
   }];
 
   const { currentIndex, currentVideo } = useVideoRotation(videos);
-  const [heroAudioEnabled, setHeroAudioEnabled] = React.useState(false);
+  const { 
+    sectionAudio, 
+    setSectionAudio, 
+    showAudioNotification, 
+    userHasInteracted,
+    enableMasterAudio 
+  } = useGlobalAudio();
+  
+  const heroAudioEnabled = sectionAudio['hero'] || false;
+
+  // Enable master audio when user first interacts and reaches hero section
+  React.useEffect(() => {
+    if (userHasInteracted) {
+      enableMasterAudio();
+    }
+  }, [userHasInteracted, enableMasterAudio]);
 
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
@@ -38,7 +54,7 @@ const HeroSection: React.FC = () => {
         {/* Section Audio Control */}
         <div className="absolute top-4 left-4 z-20">
           <button
-            onClick={() => setHeroAudioEnabled(!heroAudioEnabled)}
+            onClick={() => setSectionAudio('hero', !heroAudioEnabled)}
             className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
             aria-label={heroAudioEnabled ? 'Mute hero video audio' : 'Enable hero video audio'}
           >
@@ -49,6 +65,21 @@ const HeroSection: React.FC = () => {
             )}
           </button>
         </div>
+
+        {/* Master Audio notification for first interaction */}
+        {showAudioNotification && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-black/80 backdrop-blur-sm text-white px-6 py-4 rounded-lg border border-white/20 text-center max-w-sm"
+            >
+              <Volume2 className="w-8 h-8 mx-auto mb-2 text-orange-500" />
+              <p className="text-sm font-medium mb-1">Click anywhere to enable audio</p>
+              <p className="text-xs text-white/70">Kumar's sponsor video will play throughout the site</p>
+            </motion.div>
+          </div>
+        )}
       </div>
 
       {/* Content */}

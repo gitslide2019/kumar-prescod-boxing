@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, ExternalLink } from 'lucide-react';
+import { Menu, X, ExternalLink, Volume2, VolumeX } from 'lucide-react';
+import { useGlobalAudio } from '@/hooks/use-global-audio';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { masterAudioEnabled, setMasterAudioEnabled, userHasInteracted } = useGlobalAudio();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -48,15 +50,33 @@ const Header: React.FC = () => {
             </a>
           </nav>
 
-          {/* Get Tickets Button */}
-          <motion.a href="https://tickets.example.com" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors" whileHover={{
-          scale: 1.05
-        }} whileTap={{
-          scale: 0.95
-        }}>
-            <span>GET TICKETS</span>
-            <ExternalLink size={16} />
-          </motion.a>
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Master Audio Control */}
+            {userHasInteracted && (
+              <button
+                onClick={() => setMasterAudioEnabled(!masterAudioEnabled)}
+                className="flex items-center justify-center w-10 h-10 bg-gray-800/70 hover:bg-gray-700 backdrop-blur-sm rounded-full text-white transition-all duration-300 border border-gray-600 hover:border-orange-500"
+                aria-label={masterAudioEnabled ? 'Mute master audio' : 'Enable master audio'}
+                title="Master Audio Control"
+              >
+                {masterAudioEnabled ? (
+                  <Volume2 size={16} />
+                ) : (
+                  <VolumeX size={16} />
+                )}
+              </button>
+            )}
+
+            {/* Get Tickets Button */}
+            <motion.a href="https://tickets.example.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors" whileHover={{
+            scale: 1.05
+          }} whileTap={{
+            scale: 0.95
+          }}>
+              <span>GET TICKETS</span>
+              <ExternalLink size={16} />
+            </motion.a>
+          </div>
 
           {/* Mobile Menu Button */}
           <button onClick={toggleMenu} className="md:hidden text-white p-2" aria-label="Toggle menu">

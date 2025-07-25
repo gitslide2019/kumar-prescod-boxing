@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Calendar, MapPin, Clock } from 'lucide-react';
+import { ExternalLink, Calendar, MapPin, Clock, Volume2, VolumeX } from 'lucide-react';
 import { useVideoRotation } from '@/hooks/use-video-rotation';
+import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 interface Video {
   id: string;
@@ -27,12 +28,30 @@ const HeroSection: React.FC = () => {
   }];
 
   const { currentIndex, currentVideo } = useVideoRotation(videos);
+  const { sectionAudio, setSectionAudio } = useGlobalAudio();
+  
+  const heroAudioEnabled = sectionAudio['hero'] || false;
 
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
-        <iframe key={currentIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={currentVideo.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        <iframe key={currentIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=${heroAudioEnabled ? '0' : '1'}&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={currentVideo.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         <div className="absolute inset-0 bg-black/40" />
+        
+        {/* Section Audio Control */}
+        <div className="absolute top-4 left-4 z-20">
+          <button
+            onClick={() => setSectionAudio('hero', !heroAudioEnabled)}
+            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
+            aria-label={heroAudioEnabled ? 'Mute hero video audio' : 'Enable hero video audio'}
+          >
+            {heroAudioEnabled ? (
+              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Content */}
@@ -57,7 +76,7 @@ const HeroSection: React.FC = () => {
           delay: 0.2,
           duration: 0.6
         }}>
-            <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 bg-clip-text tracking-wider">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 bg-clip-text tracking-wider">
               KUMAR PRESCOD
             </h1>
           </motion.div>
@@ -73,11 +92,11 @@ const HeroSection: React.FC = () => {
           delay: 0.4,
           duration: 0.6
         }} className="space-y-4">
-            <h2 className="text-5xl md:text-7xl font-bold text-orange-500 tracking-wider">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-orange-500 tracking-wider">
               AUGUST 16TH
             </h2>
-            <div className="bg-red-700 text-white px-8 py-3 inline-block rounded-md">
-              <span className="text-xl font-bold tracking-wider">PROFESSIONAL BOXING</span>
+            <div className="bg-red-700 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 inline-block rounded-md">
+              <span className="text-lg sm:text-xl font-bold tracking-wider">PROFESSIONAL BOXING</span>
             </div>
           </motion.div>
 
@@ -92,10 +111,10 @@ const HeroSection: React.FC = () => {
           delay: 0.6,
           duration: 0.6
         }} className="space-y-3">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-300 tracking-wider">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-300 tracking-wider">
               OAKLAND MARRIOTT CITY CENTER
             </h3>
-            <p className="text-gray-400 text-xl tracking-wider">
+            <p className="text-gray-400 text-lg sm:text-xl tracking-wider">
               1001 BROADWAY, OAKLAND, CA 94607
             </p>
           </motion.div>
@@ -111,8 +130,8 @@ const HeroSection: React.FC = () => {
           delay: 0.8,
           duration: 0.6
         }} className="text-center space-y-2">
-            <p className="text-white text-2xl font-bold tracking-wider">DOORS OPEN 3PM</p>
-            <p className="text-white text-2xl font-bold tracking-wider">FIRST FIGHT 4PM</p>
+            <p className="text-white text-xl sm:text-2xl font-bold tracking-wider">DOORS OPEN 3PM</p>
+            <p className="text-white text-xl sm:text-2xl font-bold tracking-wider">FIRST FIGHT 4PM</p>
           </motion.div>
 
           {/* Get Tickets Button - Now Prominent */}
@@ -130,7 +149,7 @@ const HeroSection: React.FC = () => {
               href="https://www.paypal.com/ncp/payment/DE5Y9AGCDPUBY" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="inline-flex items-center space-x-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-12 py-6 rounded-lg text-2xl font-bold transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 border-2 border-orange-500/20 hover:border-orange-500/40" 
+              className="inline-flex items-center space-x-2 sm:space-x-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 sm:px-8 md:px-12 py-4 sm:py-6 rounded-lg text-lg sm:text-xl md:text-2xl font-bold transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 border-2 border-orange-500/20 hover:border-orange-500/40" 
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px rgba(249, 115, 22, 0.3)"
@@ -140,7 +159,7 @@ const HeroSection: React.FC = () => {
               }}
             >
               <span>GET TICKETS NOW</span>
-              <ExternalLink size={28} />
+              <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
             </motion.a>
           </motion.div>
 

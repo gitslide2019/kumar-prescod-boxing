@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Target, Zap, Award } from 'lucide-react';
+import { Trophy, Target, Zap, Award, Volume2, VolumeX } from 'lucide-react';
 import { useVideoRotation } from '@/hooks/use-video-rotation';
+import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 interface Video {
   id: string;
@@ -24,6 +25,9 @@ const AboutSection: React.FC = () => {
   }];
   
   const { currentIndex, currentVideo } = useVideoRotation(aboutVideos);
+  const { sectionAudio, setSectionAudio } = useGlobalAudio();
+  
+  const aboutAudioEnabled = sectionAudio['about'] || false;
 
   const stats: Stat[] = [{
     icon: Trophy,
@@ -49,13 +53,28 @@ const AboutSection: React.FC = () => {
         <iframe 
           key={currentIndex} 
           className="w-full h-full object-cover" 
-          src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} 
+          src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=${aboutAudioEnabled ? '0' : '1'}&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} 
           title={currentVideo.title} 
           frameBorder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowFullScreen 
         />
         <div className="absolute inset-0 bg-black/60" />
+        
+        {/* Section Audio Control */}
+        <div className="absolute top-4 left-4 z-20">
+          <button
+            onClick={() => setSectionAudio('about', !aboutAudioEnabled)}
+            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
+            aria-label={aboutAudioEnabled ? 'Mute about video audio' : 'Enable about video audio'}
+          >
+            {aboutAudioEnabled ? (
+              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
+          </button>
+        </div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +89,7 @@ const AboutSection: React.FC = () => {
       }} viewport={{
         once: true
       }} className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4">
             ABOUT <span className="text-orange-500">KUMAR</span>
           </h2>
           <div className="w-24 h-1 bg-orange-500 mx-auto"></div>

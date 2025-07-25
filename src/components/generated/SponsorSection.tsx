@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Trophy, Target, Dumbbell, Calendar, Star, Crown, Users, DollarSign, X, ChevronRight, CreditCard, Bot } from "lucide-react";
+import { Trophy, Target, Dumbbell, Calendar, Star, Crown, Users, DollarSign, X, ChevronRight, CreditCard, Bot, Volume2, VolumeX } from "lucide-react";
 import MockSponsorPayment from '../payments/MockSponsorPayment';
+import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 // Simple UI components to replace ShadCN imports
 const Card = ({
@@ -183,10 +184,10 @@ export default function SponsorSection({
   const [paymentPackage, setPaymentPackage] = React.useState<string | null>(null);
   const [showAIRecommendation, setShowAIRecommendation] = React.useState(false);
   const [aiRecommendation, setAIRecommendation] = React.useState<string | null>(null);
-  const [videoSoundEnabled, setVideoSoundEnabled] = React.useState(false);
-  const [userHasInteracted, setUserHasInteracted] = React.useState(false);
   const [videoKey, setVideoKey] = React.useState(0);
   const [videoLoaded, setVideoLoaded] = React.useState(false);
+  
+  const { masterAudioEnabled, setMasterAudioEnabled } = useGlobalAudio();
   
   const sponsorVideo = {
     id: 'C663b1dAhtA',
@@ -204,39 +205,12 @@ export default function SponsorSection({
     // You could show a success message or update the UI to reflect the new sponsorship
   };
 
-  // Handle user interaction to enable video sound
-  const handleUserInteraction = React.useCallback(() => {
-    if (!userHasInteracted) {
-      setUserHasInteracted(true);
-      // Small delay to ensure the state change is recognized
-      setTimeout(() => {
-        setVideoSoundEnabled(true);
-        setVideoKey(prev => prev + 1); // Force iframe reload with sound
-      }, 100);
-    }
-  }, [userHasInteracted]);
-
-  // Add global click listener for user interaction
-  React.useEffect(() => {
-    const handleGlobalClick = () => {
-      handleUserInteraction();
-    };
-
-    document.addEventListener('click', handleGlobalClick);
-    document.addEventListener('touchstart', handleGlobalClick);
-
-    return () => {
-      document.removeEventListener('click', handleGlobalClick);
-      document.removeEventListener('touchstart', handleGlobalClick);
-    };
-  }, [handleUserInteraction]);
-
-  // Generate optimized YouTube URL based on interaction state
+  // Generate optimized YouTube URL based on master audio state
   const getVideoUrl = React.useCallback(() => {
     const baseUrl = `https://www.youtube.com/embed/${sponsorVideo.id}`;
     const params = new URLSearchParams({
       autoplay: '1',
-      mute: videoSoundEnabled ? '0' : '1',
+      mute: masterAudioEnabled ? '0' : '1',
       loop: '1',
       playlist: sponsorVideo.id,
       controls: '0',
@@ -256,7 +230,12 @@ export default function SponsorSection({
     });
     
     return `${baseUrl}?${params.toString()}`;
-  }, [sponsorVideo.id, videoSoundEnabled]);
+  }, [sponsorVideo.id, masterAudioEnabled]);
+
+  // Reload video when audio state changes
+  React.useEffect(() => {
+    setVideoKey(prev => prev + 1);
+  }, [masterAudioEnabled]);
 
   // AI-powered sponsor matching
   const generateAIRecommendation = (companyType: string, budget: string, goals: string) => {
@@ -309,31 +288,27 @@ export default function SponsorSection({
           onLoad={() => setVideoLoaded(true)}
         />
         
-        {/* Sound activation overlay - shown until user interacts */}
-        {!userHasInteracted && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center">
-            <div className="bg-black/60 backdrop-blur-sm rounded-2xl p-6 text-white text-center border border-white/20 animate-pulse">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-600/80 flex items-center justify-center">
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold mb-2">Click anywhere to enable sound</h3>
-              <p className="text-sm text-gray-300">Experience Kumar's journey with audio</p>
-            </div>
+        {/* Master Audio Control - Always visible */}
+        <div className="absolute top-4 right-4 z-20">
+          <button
+            onClick={() => setMasterAudioEnabled(!masterAudioEnabled)}
+            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
+            aria-label={masterAudioEnabled ? 'Mute video audio' : 'Enable video audio'}
+          >
+            {masterAudioEnabled ? (
+              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
+          </button>
+          
+          {/* Audio status indicator */}
+          <div className="absolute -bottom-8 right-0">
+            <span className="text-xs font-medium text-white/80 bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
+              {masterAudioEnabled ? 'Audio On' : 'Audio Off'}
+            </span>
           </div>
-        )}
-        
-        {/* Sound enabled indicator - briefly shown after activation */}
-        {userHasInteracted && videoSoundEnabled && (
-          <div className="absolute top-4 right-4 z-20">
-            <div className="bg-green-600/90 backdrop-blur-sm rounded-full p-3 text-white animate-fade-in-out">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              </svg>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -342,7 +317,7 @@ export default function SponsorSection({
           <Badge variant="outline" className="mb-4 text-sm font-medium bg-white/90 backdrop-blur-sm">
             Partnership Opportunities
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
             Sponsor Kumar's Journey
           </h2>
           <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
@@ -352,7 +327,7 @@ export default function SponsorSection({
         </div>
 
         {/* Sponsor Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
           {sponsorPackages.map(pkg => {
           const IconComponent = pkg.icon;
           const progressPercentage = pkg.raised / pkg.goal * 100;
@@ -422,7 +397,7 @@ export default function SponsorSection({
                     </div>}
                   
                   <div className="space-y-2">
-                    <Button className={`w-full ${isCompleted ? 'bg-green-600 hover:bg-green-700' : pkg.buttonColor} text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95`} onClick={e => {
+                    <Button className={`w-full min-h-[44px] ${isCompleted ? 'bg-green-600 hover:bg-green-700' : pkg.buttonColor} text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-sm sm:text-base`} onClick={e => {
                 e.stopPropagation();
                 setSelectedPackage(pkg.id);
               }}>
@@ -430,7 +405,7 @@ export default function SponsorSection({
                     </Button>
                     {!isCompleted && (
                       <Button 
-                        className="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm"
+                        className="w-full min-h-[44px] bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm sm:text-base"
                         onClick={e => {
                           e.stopPropagation();
                           setPaymentPackage(pkg.id);
@@ -590,7 +565,7 @@ export default function SponsorSection({
           
           {!showAIRecommendation ? (
             <div className="max-w-2xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-blue-100 mb-2">Business Type</label>
                   <select id="businessType" className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40">

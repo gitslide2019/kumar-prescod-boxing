@@ -1,9 +1,8 @@
-import { useMemo } from 'react';
 import { Container, Theme } from './settings/types';
 import BoxerWebsite from './components/generated/BoxerWebsite';
 
-let theme: Theme = 'light';
-let container: Container = 'none';
+const theme: Theme = 'light';
+const container: Container = 'none';
 
 function App() {
   function setTheme(theme: Theme) {
@@ -16,10 +15,8 @@ function App() {
 
   setTheme(theme);
 
-  const generatedComponent = useMemo(() => {
-    // THIS IS WHERE THE TOP LEVEL GENRATED COMPONENT WILL BE RETURNED!
-    return <BoxerWebsite />; // %EXPORT_STATEMENT%
-  }, []);
+  // Remove unnecessary useMemo since BoxerWebsite is always the same
+  const generatedComponent = <BoxerWebsite />;
 
   if (container === 'centered') {
     return (

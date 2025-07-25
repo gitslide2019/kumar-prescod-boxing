@@ -68,7 +68,7 @@ const MediaGallerySection: React.FC = () => {
 
     const interval = setInterval(spawnReaction, 3000); // New reaction every 3 seconds
     return () => clearInterval(interval);
-  }, [activeReactions.length]);
+  }, [activeReactions.length, socialReactionsData]);
 
   // Kumar Prescod Mixed Media Gallery
   const mediaItems: MediaItem[] = [

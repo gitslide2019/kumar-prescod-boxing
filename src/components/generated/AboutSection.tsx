@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Zap, Award } from 'lucide-react';
+import { useVideoRotation } from '@/hooks/use-video-rotation';
+
+interface Video {
+  id: string;
+  title: string;
+}
+
+interface Stat {
+  icon: React.ComponentType;
+  label: string;
+  value: string;
+}
+
 const AboutSection: React.FC = () => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const aboutVideos = [{
+  const aboutVideos: Video[] = [{
     id: 'm5ZvGaWKrrQ',
     title: 'Kumar Prescod Elite Training From Nationals'
   }, {
     id: 'YKGBDJJjCxo',
     title: 'The Young Raw One'
-  }] as any[];
+  }];
   
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex(prevIndex => prevIndex === aboutVideos.length - 1 ? 0 : prevIndex + 1);
-    }, 30000); // Change video every 30 seconds
+  const { currentIndex, currentVideo } = useVideoRotation(aboutVideos);
 
-    return () => clearInterval(interval);
-  }, [aboutVideos.length]);
-  const stats = [{
+  const stats: Stat[] = [{
     icon: Trophy,
     label: '9x National Champion',
     value: '9'
@@ -34,15 +41,16 @@ const AboutSection: React.FC = () => {
     icon: Award,
     label: 'Professional KOs',
     value: '3'
-  }] as any[];
+  }];
+
   return <section id="about" className="relative py-20 bg-gray-900 overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
         <iframe 
-          key={currentVideoIndex} 
+          key={currentIndex} 
           className="w-full h-full object-cover" 
-          src={`https://www.youtube.com/embed/${aboutVideos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${aboutVideos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} 
-          title={aboutVideos[currentVideoIndex].title} 
+          src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} 
+          title={currentVideo.title} 
           frameBorder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowFullScreen 

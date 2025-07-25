@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, MapPin, Clock } from 'lucide-react';
+import { useVideoRotation } from '@/hooks/use-video-rotation';
+
+interface Video {
+  id: string;
+  title: string;
+}
+
 const HeroSection: React.FC = () => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const videos = [{
+  const videos: Video[] = [{
     id: '4jftcUAny5E',
     title: 'Kumar Prescod Boxing Short 1'
   }, {
@@ -18,18 +24,14 @@ const HeroSection: React.FC = () => {
   }, {
     id: 'caOtbIMgDCQ',
     title: 'Kumar Prescod Boxing Highlight'
-  }] as any[];
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex(prevIndex => prevIndex === videos.length - 1 ? 0 : prevIndex + 1);
-    }, 30000); // Change video every 30 seconds
+  }];
 
-    return () => clearInterval(interval);
-  }, [videos.length]);
+  const { currentIndex, currentVideo } = useVideoRotation(videos);
+
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0">
-        <iframe key={currentVideoIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${videos[currentVideoIndex].id}?autoplay=1&mute=1&loop=1&playlist=${videos[currentVideoIndex].id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={videos[currentVideoIndex].title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        <iframe key={currentIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={currentVideo.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 

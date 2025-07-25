@@ -25,7 +25,7 @@ const AboutSection: React.FC = () => {
   }];
   
   const { currentIndex, currentVideo } = useVideoRotation(aboutVideos);
-  const { sectionAudio, setSectionAudio } = useGlobalAudio();
+  const { sectionAudio, setSectionAudio, isMobile } = useGlobalAudio();
   
   const aboutAudioEnabled = sectionAudio['about'] || false;
 
@@ -65,13 +65,13 @@ const AboutSection: React.FC = () => {
         <div className="absolute top-4 left-4 z-20">
           <button
             onClick={() => setSectionAudio('about', !aboutAudioEnabled)}
-            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
+            className={`flex items-center justify-center ${isMobile ? 'w-14 h-14' : 'w-12 h-12 sm:w-14 sm:h-14'} bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl`}
             aria-label={aboutAudioEnabled ? 'Mute about video audio' : 'Enable about video audio'}
           >
             {aboutAudioEnabled ? (
-              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
+              <Volume2 className={`${isMobile ? 'w-7 h-7' : 'w-5 h-5 sm:w-6 sm:h-6'}`} />
             ) : (
-              <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
+              <VolumeX className={`${isMobile ? 'w-7 h-7' : 'w-5 h-5 sm:w-6 sm:h-6'}`} />
             )}
           </button>
         </div>

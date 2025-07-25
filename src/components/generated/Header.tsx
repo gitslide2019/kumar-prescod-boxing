@@ -4,7 +4,7 @@ import { Menu, X, ExternalLink, Volume2, VolumeX } from 'lucide-react';
 import { useGlobalAudio } from '@/hooks/use-global-audio';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { masterAudioEnabled, setMasterAudioEnabled, userHasInteracted } = useGlobalAudio();
+  const { masterAudioEnabled, setMasterAudioEnabled, userHasInteracted, isMobile, enableMobileAudio } = useGlobalAudio();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -108,6 +108,25 @@ const Header: React.FC = () => {
               <button onClick={() => scrollToSection('media')} className="text-gray-300 hover:text-white transition-colors text-sm font-medium text-left">
                 MEDIA
               </button>
+              
+              {/* Mobile Master Audio Control */}
+              {userHasInteracted && (
+                <button
+                  onClick={() => isMobile ? enableMobileAudio() : setMasterAudioEnabled(!masterAudioEnabled)}
+                  className="flex items-center space-x-3 bg-gray-800/70 hover:bg-gray-700 backdrop-blur-sm rounded-lg text-white transition-all duration-300 border border-gray-600 hover:border-orange-500 px-4 py-3 w-fit"
+                  aria-label={masterAudioEnabled ? 'Mute master audio' : 'Enable master audio'}
+                >
+                  {masterAudioEnabled ? (
+                    <Volume2 size={20} />
+                  ) : (
+                    <VolumeX size={20} />
+                  )}
+                  <span className="text-sm font-medium">
+                    {masterAudioEnabled ? 'MUTE AUDIO' : 'ENABLE AUDIO'}
+                  </span>
+                </button>
+              )}
+
               <a href="https://tickets.example.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors w-fit">
                 <span>GET TICKETS</span>
                 <ExternalLink size={16} />

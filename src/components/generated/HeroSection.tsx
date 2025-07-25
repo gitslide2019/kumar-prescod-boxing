@@ -33,7 +33,10 @@ const HeroSection: React.FC = () => {
     setSectionAudio, 
     showAudioNotification, 
     userHasInteracted,
-    enableMasterAudio 
+    enableMasterAudio,
+    isMobile,
+    enableMobileAudio,
+    masterAudioEnabled
   } = useGlobalAudio();
   
   const heroAudioEnabled = sectionAudio['hero'] || false;
@@ -51,8 +54,9 @@ const HeroSection: React.FC = () => {
         <iframe key={currentIndex} className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=${heroAudioEnabled ? '0' : '1'}&loop=1&playlist=${currentVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=0&enablejsapi=1`} title={currentVideo.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         <div className="absolute inset-0 bg-black/40" />
         
-        {/* Section Audio Control */}
-        <div className="absolute top-4 left-4 z-20">
+        {/* Audio Controls */}
+        <div className="absolute top-4 left-4 z-20 flex flex-col space-y-3">
+          {/* Section Audio Control */}
           <button
             onClick={() => setSectionAudio('hero', !heroAudioEnabled)}
             className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
@@ -64,19 +68,39 @@ const HeroSection: React.FC = () => {
               <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
             )}
           </button>
+
+          {/* Prominent Mobile Audio Activation Button */}
+          {isMobile && userHasInteracted && !masterAudioEnabled && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onClick={enableMobileAudio}
+              className="flex items-center justify-center w-16 h-16 bg-orange-600/90 hover:bg-orange-700 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-orange-400 shadow-xl hover:shadow-2xl animate-pulse"
+              aria-label="Enable master audio for mobile"
+            >
+              <Volume2 className="w-8 h-8" />
+            </motion.button>
+          )}
         </div>
 
         {/* Master Audio notification for first interaction */}
         {showAudioNotification && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 px-4">
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               className="bg-black/80 backdrop-blur-sm text-white px-6 py-4 rounded-lg border border-white/20 text-center max-w-sm"
             >
               <Volume2 className="w-8 h-8 mx-auto mb-2 text-orange-500" />
-              <p className="text-sm font-medium mb-1">Click anywhere to enable audio</p>
+              <p className="text-sm font-medium mb-1">
+                {isMobile ? 'Tap anywhere to enable audio' : 'Click anywhere to enable audio'}
+              </p>
               <p className="text-xs text-white/70">Kumar's sponsor video will play throughout the site</p>
+              {isMobile && (
+                <p className="text-xs text-orange-400 mt-2">
+                  Look for the orange audio button after tapping
+                </p>
+              )}
             </motion.div>
           </div>
         )}

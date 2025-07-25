@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect, useRef } from 'react';
 
 interface GlobalAudioContextType {
   // Master audio control (sponsor video audio for entire site)
@@ -20,10 +20,15 @@ interface GlobalAudioContextType {
   // Master audio video reference
   sponsorVideoId: string;
   
+  // Mobile detection and audio fallback
+  isMobile: boolean;
+  audioElement: HTMLAudioElement | null;
+  
   // Helper to manage audio conflicts
   playSection: (section: string) => void;
   stopSection: (section: string) => void;
   enableMasterAudio: () => void;
+  enableMobileAudio: () => void;
 }
 
 const GlobalAudioContext = createContext<GlobalAudioContextType | undefined>(undefined);
@@ -41,6 +46,17 @@ export function GlobalAudioProvider({ children }: { children: ReactNode }) {
   const [userHasInteracted, setUserHasInteracted] = useState(false);
   const [showAudioNotification, setShowAudioNotification] = useState(true);
   const [sectionAudio, setSectionAudioState] = useState<Record<string, boolean>>({});
+  
+  // Mobile detection
+  const [isMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    }
+    return false;
+  });
+
+  // HTML5 audio element for mobile fallback
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
 
   // Sponsor video that serves as master audio for entire site
   const sponsorVideoId = 'C663b1dAhtA'; // "Turning Pro the Raw Way"
@@ -89,6 +105,24 @@ export function GlobalAudioProvider({ children }: { children: ReactNode }) {
     }
   }, [userHasInteracted]);
 
+  // Mobile audio activation - creates HTML5 audio element for mobile fallback
+  const enableMobileAudio = useCallback(() => {
+    if (isMobile && userHasInteracted && !audioElementRef.current) {
+      // Create HTML5 audio element for mobile compatibility
+      const audio = new Audio();
+      audio.src = `https://www.youtube.com/watch?v=${sponsorVideoId}`;
+      audio.loop = true;
+      audio.volume = 0.7;
+      audioElementRef.current = audio;
+      
+      // Try to play the audio
+      audio.play().catch(error => {
+        console.log('Mobile audio autoplay blocked:', error);
+      });
+    }
+    setMasterAudioEnabled(true);
+  }, [isMobile, userHasInteracted, sponsorVideoId]);
+
   const value = {
     masterAudioEnabled,
     setMasterAudioEnabled,
@@ -99,9 +133,12 @@ export function GlobalAudioProvider({ children }: { children: ReactNode }) {
     sectionAudio,
     setSectionAudio,
     sponsorVideoId,
+    isMobile,
+    audioElement: audioElementRef.current,
     playSection,
     stopSection,
     enableMasterAudio,
+    enableMobileAudio,
   };
 
   return (

@@ -14,6 +14,48 @@ CREATE TABLE IF NOT EXISTS public.users (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Media categories table
+CREATE TABLE IF NOT EXISTS public.media_categories (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Media items table (for videos and photos)
+CREATE TABLE IF NOT EXISTS public.media_items (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    type TEXT NOT NULL CHECK (type IN ('video', 'image')),
+    category_id UUID REFERENCES public.media_categories(id) ON DELETE SET NULL,
+    url TEXT NOT NULL,
+    thumbnail_url TEXT,
+    duration INTEGER, -- for videos (in seconds)
+    file_size INTEGER, -- in bytes
+    width INTEGER, -- for images/videos
+    height INTEGER, -- for images/videos
+    is_featured BOOLEAN DEFAULT false,
+    is_public BOOLEAN DEFAULT true,
+    sort_order INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Media tags table
+CREATE TABLE IF NOT EXISTS public.media_tags (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Media items tags junction table
+CREATE TABLE IF NOT EXISTS public.media_items_tags (
+    media_item_id UUID REFERENCES public.media_items(id) ON DELETE CASCADE,
+    tag_id UUID REFERENCES public.media_tags(id) ON DELETE CASCADE,
+    PRIMARY KEY (media_item_id, tag_id)
+);
+
 -- Products table (merchandise)
 CREATE TABLE IF NOT EXISTS public.products (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -105,6 +147,11 @@ CREATE INDEX IF NOT EXISTS idx_sponsorships_status ON public.sponsorships(status
 CREATE INDEX IF NOT EXISTS idx_tickets_event_date ON public.tickets(event_date);
 CREATE INDEX IF NOT EXISTS idx_ticket_purchases_user_id ON public.ticket_purchases(user_id);
 CREATE INDEX IF NOT EXISTS idx_chat_messages_user_id ON public.chat_messages(user_id);
+CREATE INDEX IF NOT EXISTS idx_media_items_type ON public.media_items(type);
+CREATE INDEX IF NOT EXISTS idx_media_items_category ON public.media_items(category_id);
+CREATE INDEX IF NOT EXISTS idx_media_items_featured ON public.media_items(is_featured);
+CREATE INDEX IF NOT EXISTS idx_media_items_public ON public.media_items(is_public);
+CREATE INDEX IF NOT EXISTS idx_media_items_sort ON public.media_items(sort_order);
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -121,6 +168,7 @@ CREATE TRIGGER update_products_updated_at BEFORE UPDATE ON public.products FOR E
 CREATE TRIGGER update_orders_updated_at BEFORE UPDATE ON public.orders FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_sponsorships_updated_at BEFORE UPDATE ON public.sponsorships FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_tickets_updated_at BEFORE UPDATE ON public.tickets FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_media_items_updated_at BEFORE UPDATE ON public.media_items FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Row Level Security (RLS) policies
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
@@ -131,10 +179,30 @@ ALTER TABLE public.sponsorships ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ticket_purchases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.media_categories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.media_items ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.media_tags ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.media_items_tags ENABLE ROW LEVEL SECURITY;
 
 -- Users can only see their own data
 CREATE POLICY "Users can view own profile" ON public.users FOR SELECT USING (auth.uid() = id);
 CREATE POLICY "Users can update own profile" ON public.users FOR UPDATE USING (auth.uid() = id);
+
+-- Media categories are publicly readable
+CREATE POLICY "Media categories are publicly readable" ON public.media_categories FOR SELECT USING (true);
+
+-- Media items policies
+CREATE POLICY "Public media items are publicly readable" ON public.media_items FOR SELECT USING (is_public = true);
+CREATE POLICY "Authenticated users can view all media" ON public.media_items FOR SELECT USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Admin users can manage media" ON public.media_items FOR ALL USING (auth.uid() IN (
+    SELECT id FROM public.users WHERE email IN ('admin@kumarprescod.com', 'kumar@kumarprescod.com')
+));
+
+-- Media tags are publicly readable
+CREATE POLICY "Media tags are publicly readable" ON public.media_tags FOR SELECT USING (true);
+
+-- Media items tags are publicly readable
+CREATE POLICY "Media items tags are publicly readable" ON public.media_items_tags FOR SELECT USING (true);
 
 -- Products are publicly readable
 CREATE POLICY "Products are publicly readable" ON public.products FOR SELECT USING (true);
@@ -166,6 +234,87 @@ CREATE POLICY "Users can create own ticket purchases" ON public.ticket_purchases
 -- Chat messages policies
 CREATE POLICY "Users can view own chat messages" ON public.chat_messages FOR SELECT USING (auth.uid() = user_id OR user_id IS NULL);
 CREATE POLICY "Users can create chat messages" ON public.chat_messages FOR INSERT WITH CHECK (auth.uid() = user_id OR user_id IS NULL);
+
+-- Insert sample media categories
+INSERT INTO public.media_categories (name, description) VALUES
+('fights', 'Fight videos and photos'),
+('training', 'Training sessions and workouts'),
+('journey', 'Personal journey and behind-the-scenes'),
+('interviews', 'Interviews and media appearances'),
+('highlights', 'Best moments and highlights');
+
+-- Insert sample media tags
+INSERT INTO public.media_tags (name) VALUES
+('knockout'),
+('training'),
+('oakland'),
+('champion'),
+('professional'),
+('amateur'),
+('team-usa'),
+('nationals'),
+('elite'),
+('motivation');
+
+-- Insert sample media items (videos)
+INSERT INTO public.media_items (title, description, type, category_id, url, thumbnail_url, duration, is_featured, sort_order) VALUES
+('Kumar Prescod 2023 Nationals Fight 1', 'Championship fight from 2023 Nationals', 'video', 
+ (SELECT id FROM public.media_categories WHERE name = 'fights'),
+ 'https://www.youtube.com/embed/hlAeye4eW4o?autoplay=1&loop=1&playlist=hlAeye4eW4o',
+ 'https://img.youtube.com/vi/hlAeye4eW4o/maxresdefault.jpg', 180, true, 1),
+
+('Kumar Prescod Elite Training From Nationals', 'Elite training session showcasing skills', 'video',
+ (SELECT id FROM public.media_categories WHERE name = 'training'),
+ 'https://www.youtube.com/embed/m5ZvGaWKrrQ?autoplay=1&loop=1&playlist=m5ZvGaWKrrQ',
+ 'https://img.youtube.com/vi/m5ZvGaWKrrQ/maxresdefault.jpg', 240, true, 2),
+
+('The Young Raw One - Journey Documentary', 'Documentary about Kumar''s journey', 'video',
+ (SELECT id FROM public.media_categories WHERE name = 'journey'),
+ 'https://www.youtube.com/embed/YKGBDJJjCxo?autoplay=1&loop=1&playlist=YKGBDJJjCxo',
+ 'https://img.youtube.com/vi/YKGBDJJjCxo/maxresdefault.jpg', 600, true, 3),
+
+('Skyler Mauller vs Kumar Prescod (Pro Debut KO)', 'Professional debut knockout victory', 'video',
+ (SELECT id FROM public.media_categories WHERE name = 'fights'),
+ 'https://www.youtube.com/embed/abEB1TwZPko?autoplay=1&loop=1&playlist=abEB1TwZPko',
+ 'https://img.youtube.com/vi/abEB1TwZPko/maxresdefault.jpg', 120, true, 4);
+
+-- Insert sample media items (photos)
+INSERT INTO public.media_items (title, description, type, category_id, url, thumbnail_url, width, height, is_featured, sort_order) VALUES
+('Heavy Bag Training Fundamentals', 'Kumar working on heavy bag technique', 'image',
+ (SELECT id FROM public.media_categories WHERE name = 'training'),
+ '/images/training/training-1.jpeg', '/images/training/training-1.jpeg', 1920, 1080, false, 5),
+
+('Professional Fight Promo', 'Professional fight promotional photo', 'image',
+ (SELECT id FROM public.media_categories WHERE name = 'fights'),
+ '/images/fights/fight-promo.jpeg', '/images/fights/fight-promo.jpeg', 1920, 1080, false, 6),
+
+('Kumar Prescod About Photo', 'Professional headshot for about section', 'image',
+ (SELECT id FROM public.media_categories WHERE name = 'journey'),
+ '/images/fights/kumar-about-photo.png', '/images/fights/kumar-about-photo.png', 800, 600, true, 7),
+
+('Boxing Journey 1', 'Early days of Kumar''s boxing journey', 'image',
+ (SELECT id FROM public.media_categories WHERE name = 'journey'),
+ '/images/journey/journey-1.jpeg', '/images/journey/journey-1.jpeg', 1920, 1080, false, 8);
+
+-- Link media items to tags
+INSERT INTO public.media_items_tags (media_item_id, tag_id) VALUES
+-- Fight videos
+((SELECT id FROM public.media_items WHERE title LIKE '%Fight 1%'), (SELECT id FROM public.media_tags WHERE name = 'champion')),
+((SELECT id FROM public.media_items WHERE title LIKE '%Fight 1%'), (SELECT id FROM public.media_tags WHERE name = 'nationals')),
+((SELECT id FROM public.media_items WHERE title LIKE '%Pro Debut%'), (SELECT id FROM public.media_tags WHERE name = 'knockout')),
+((SELECT id FROM public.media_items WHERE title LIKE '%Pro Debut%'), (SELECT id FROM public.media_tags WHERE name = 'professional')),
+
+-- Training videos
+((SELECT id FROM public.media_items WHERE title LIKE '%Elite Training%'), (SELECT id FROM public.media_tags WHERE name = 'training')),
+((SELECT id FROM public.media_items WHERE title LIKE '%Elite Training%'), (SELECT id FROM public.media_tags WHERE name = 'elite')),
+
+-- Journey content
+((SELECT id FROM public.media_items WHERE title LIKE '%Young Raw One%'), (SELECT id FROM public.media_tags WHERE name = 'motivation')),
+((SELECT id FROM public.media_items WHERE title LIKE '%Young Raw One%'), (SELECT id FROM public.media_tags WHERE name = 'oakland')),
+
+-- Training photos
+((SELECT id FROM public.media_items WHERE title LIKE '%Heavy Bag%'), (SELECT id FROM public.media_tags WHERE name = 'training')),
+((SELECT id FROM public.media_items WHERE title LIKE '%About Photo%'), (SELECT id FROM public.media_tags WHERE name = 'champion'));
 
 -- Insert sample data
 INSERT INTO public.products (name, description, price, category, image_url) VALUES

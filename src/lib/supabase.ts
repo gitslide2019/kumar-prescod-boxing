@@ -13,6 +13,113 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export interface Database {
   public: {
     Tables: {
+      media_categories: {
+        Row: {
+          id: string;
+          name: string;
+          description: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          description?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          description?: string | null;
+          created_at?: string;
+        };
+      };
+      media_items: {
+        Row: {
+          id: string;
+          title: string;
+          description: string | null;
+          type: 'video' | 'image';
+          category_id: string | null;
+          url: string;
+          thumbnail_url: string | null;
+          duration: number | null;
+          file_size: number | null;
+          width: number | null;
+          height: number | null;
+          is_featured: boolean;
+          is_public: boolean;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          description?: string | null;
+          type: 'video' | 'image';
+          category_id?: string | null;
+          url: string;
+          thumbnail_url?: string | null;
+          duration?: number | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          is_featured?: boolean;
+          is_public?: boolean;
+          sort_order?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          description?: string | null;
+          type?: 'video' | 'image';
+          category_id?: string | null;
+          url?: string;
+          thumbnail_url?: string | null;
+          duration?: number | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          is_featured?: boolean;
+          is_public?: boolean;
+          sort_order?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      media_tags: {
+        Row: {
+          id: string;
+          name: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          created_at?: string;
+        };
+      };
+      media_items_tags: {
+        Row: {
+          media_item_id: string;
+          tag_id: string;
+        };
+        Insert: {
+          media_item_id: string;
+          tag_id: string;
+        };
+        Update: {
+          media_item_id?: string;
+          tag_id?: string;
+        };
+      };
       users: {
         Row: {
           id: string;

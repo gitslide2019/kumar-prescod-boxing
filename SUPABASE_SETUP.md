@@ -43,6 +43,10 @@ VITE_SUPABASE_ANON_KEY=your_anon_key_here
 | Table | Purpose | Key Features |
 |-------|---------|--------------|
 | `users` | User profiles | Extends Supabase auth |
+| `media_categories` | Media organization | Categories for videos/photos |
+| `media_items` | Videos and photos | Complete media management |
+| `media_tags` | Media tagging | Search and filtering |
+| `media_items_tags` | Tag relationships | Many-to-many tagging |
 | `products` | Merchandise items | E-commerce catalog |
 | `orders` | Customer orders | Payment tracking |
 | `order_items` | Order line items | Quantity tracking |
@@ -56,6 +60,9 @@ VITE_SUPABASE_ANON_KEY=your_anon_key_here
 - **5 Products**: T-shirts, gloves, hoodies, caps, posters
 - **1 Event**: August 16th fight at Oakland Marriott
 - **Sample pricing**: $19.99 - $89.99 range
+- **5 Media Categories**: fights, training, journey, interviews, highlights
+- **10 Media Tags**: knockout, training, oakland, champion, professional, etc.
+- **8 Media Items**: 4 videos + 4 photos with proper metadata
 
 ## 🔐 Security Features
 
@@ -139,6 +146,14 @@ const subscription = supabase
 - ✅ Status tracking
 - ✅ Contact management
 
+### Media Management
+- ✅ Video and photo storage
+- ✅ Category organization
+- ✅ Tagging system
+- ✅ Featured content
+- ✅ Public/private control
+- ✅ Sort ordering
+
 ### Customer Support
 - ✅ AI chat assistant
 - ✅ Message history
@@ -153,6 +168,9 @@ Create storage buckets for:
 - `merchandise-images` - Product photos
 - `user-avatars` - Profile pictures
 - `event-media` - Fight photos/videos
+- `training-media` - Training session photos/videos
+- `journey-media` - Behind-the-scenes content
+- `interviews-media` - Interview recordings
 
 ### 2. Edge Functions
 

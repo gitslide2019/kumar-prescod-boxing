@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Trophy, Target, Dumbbell, Calendar, Star, Crown, Users, DollarSign, X, ChevronRight, CreditCard, Bot, Volume2, VolumeX } from "lucide-react";
 import MockSponsorPayment from '../payments/MockSponsorPayment';
-import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 // Simple UI components to replace ShadCN imports
 const Card = ({
@@ -186,8 +185,9 @@ export default function SponsorSection({
   const [aiRecommendation, setAIRecommendation] = React.useState<string | null>(null);
   const [videoKey, setVideoKey] = React.useState(0);
   const [videoLoaded, setVideoLoaded] = React.useState(false);
-  
-  const { masterAudioEnabled, setMasterAudioEnabled } = useGlobalAudio();
+  const [audioEnabled, setAudioEnabled] = React.useState(false);
+  const [userHasInteracted, setUserHasInteracted] = React.useState(false);
+  const [showAudioNotification, setShowAudioNotification] = React.useState(false);
   
   const sponsorVideo = {
     id: 'C663b1dAhtA',
@@ -205,10 +205,34 @@ export default function SponsorSection({
     // You could show a success message or update the UI to reflect the new sponsorship
   };
 
+  // Add global click listener to detect user interaction
+  React.useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (!userHasInteracted) {
+        setUserHasInteracted(true);
+        setAudioEnabled(true);
+        setShowAudioNotification(false);
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
+      }
+    };
+
+    if (!userHasInteracted) {
+      setShowAudioNotification(true);
+      document.addEventListener('click', handleFirstInteraction);
+      document.addEventListener('touchstart', handleFirstInteraction);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
+  }, [userHasInteracted]);
+
   // Reload video when audio state changes
   React.useEffect(() => {
     setVideoKey(prev => prev + 1);
-  }, [masterAudioEnabled]);
+  }, [audioEnabled]);
 
   // AI-powered sponsor matching
   const generateAIRecommendation = (companyType: string, budget: string, goals: string) => {
@@ -246,7 +270,7 @@ export default function SponsorSection({
         <iframe 
           key={videoKey}
           className="absolute inset-0 w-full h-full object-cover" 
-          src={`https://www.youtube.com/embed/${sponsorVideo.id}?autoplay=1&mute=${masterAudioEnabled ? '0' : '1'}&loop=1&playlist=${sponsorVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&start=0&enablejsapi=1&origin=${window.location.origin}&widget_referrer=${window.location.origin}&cc_load_policy=0&disablekb=1&fs=0`}
+          src={`https://www.youtube.com/embed/${sponsorVideo.id}?autoplay=1&mute=${audioEnabled ? '0' : '1'}&loop=1&playlist=${sponsorVideo.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&start=0&enablejsapi=1&origin=${window.location.origin}&widget_referrer=${window.location.origin}&cc_load_policy=0&disablekb=1&fs=0`}
           title={sponsorVideo.title}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
@@ -261,14 +285,14 @@ export default function SponsorSection({
           onLoad={() => setVideoLoaded(true)}
         />
         
-        {/* Master Audio Control - Always visible */}
+        {/* Audio Control and Notification */}
         <div className="absolute top-4 right-4 z-20">
           <button
-            onClick={() => setMasterAudioEnabled(!masterAudioEnabled)}
+            onClick={() => setAudioEnabled(!audioEnabled)}
             className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
-            aria-label={masterAudioEnabled ? 'Mute video audio' : 'Enable video audio'}
+            aria-label={audioEnabled ? 'Mute video audio' : 'Enable video audio'}
           >
-            {masterAudioEnabled ? (
+            {audioEnabled ? (
               <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />
             ) : (
               <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -278,10 +302,21 @@ export default function SponsorSection({
           {/* Audio status indicator */}
           <div className="absolute -bottom-8 right-0">
             <span className="text-xs font-medium text-white/80 bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
-              {masterAudioEnabled ? 'Audio On' : 'Audio Off'}
+              {audioEnabled ? 'Audio On' : 'Audio Off'}
             </span>
           </div>
         </div>
+
+        {/* Audio notification for first interaction */}
+        {showAudioNotification && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+            <div className="bg-black/80 backdrop-blur-sm text-white px-6 py-4 rounded-lg border border-white/20 text-center max-w-sm">
+              <Volume2 className="w-8 h-8 mx-auto mb-2 text-orange-500" />
+              <p className="text-sm font-medium mb-1">Click anywhere to enable audio</p>
+              <p className="text-xs text-white/70">Sponsor video will play with sound</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Zap, Award, Volume2, VolumeX } from 'lucide-react';
 import { useVideoRotation } from '@/hooks/use-video-rotation';
-import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 interface Video {
   id: string;
@@ -25,9 +24,7 @@ const AboutSection: React.FC = () => {
   }];
   
   const { currentIndex, currentVideo } = useVideoRotation(aboutVideos);
-  const { sectionAudio, setSectionAudio } = useGlobalAudio();
-  
-  const aboutAudioEnabled = sectionAudio['about'] || false;
+  const [aboutAudioEnabled, setAboutAudioEnabled] = React.useState(false);
 
   const stats: Stat[] = [{
     icon: Trophy,
@@ -64,7 +61,7 @@ const AboutSection: React.FC = () => {
         {/* Section Audio Control */}
         <div className="absolute top-4 left-4 z-20">
           <button
-            onClick={() => setSectionAudio('about', !aboutAudioEnabled)}
+            onClick={() => setAboutAudioEnabled(!aboutAudioEnabled)}
             className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
             aria-label={aboutAudioEnabled ? 'Mute about video audio' : 'Enable about video audio'}
           >

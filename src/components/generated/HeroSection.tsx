@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar, MapPin, Clock, Volume2, VolumeX } from 'lucide-react';
 import { useVideoRotation } from '@/hooks/use-video-rotation';
-import { useGlobalAudio } from '@/hooks/use-global-audio';
 
 interface Video {
   id: string;
@@ -28,9 +27,7 @@ const HeroSection: React.FC = () => {
   }];
 
   const { currentIndex, currentVideo } = useVideoRotation(videos);
-  const { sectionAudio, setSectionAudio } = useGlobalAudio();
-  
-  const heroAudioEnabled = sectionAudio['hero'] || false;
+  const [heroAudioEnabled, setHeroAudioEnabled] = React.useState(false);
 
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
@@ -41,7 +38,7 @@ const HeroSection: React.FC = () => {
         {/* Section Audio Control */}
         <div className="absolute top-4 left-4 z-20">
           <button
-            onClick={() => setSectionAudio('hero', !heroAudioEnabled)}
+            onClick={() => setHeroAudioEnabled(!heroAudioEnabled)}
             className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-black/70 hover:bg-black/85 backdrop-blur-sm rounded-full text-white transition-all duration-300 border-2 border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
             aria-label={heroAudioEnabled ? 'Mute hero video audio' : 'Enable hero video audio'}
           >
